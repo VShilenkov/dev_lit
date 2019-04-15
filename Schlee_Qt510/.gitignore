@@ -1,0 +1,7 @@
+# qtcreator generated files
+*.pro.user*
+
+# build folders content
+**/build-*-Debug/**
+**/build-*-Release/**
+**/build-*-Profile/**
