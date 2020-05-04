@@ -1,0 +1,9 @@
+div.code-block-caption {
+    text-align: right;
+    font-weight: 700;
+}
+
+a.cmake {
+    color: #2b63a8;
+    font-family: sans-serif;
+}

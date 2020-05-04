@@ -136,3 +136,7 @@ public:
         - **TGTPPT**: `<LANG>_EXTENSIONS`
     - for specific target with compile features
         - `<lang>_std_<value>`
+- Compile features should be used only in special cases where user knows what they do
+- **MODULE**:`WriteCompilerDetectionHeader` can be used to detect and provide implementation for compile features
+    - better to use in cases when moving to new standard
+    

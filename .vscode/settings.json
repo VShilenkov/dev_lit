@@ -1,0 +1,10 @@
+{
+    "C_Cpp.default.configurationProvider": "vector-of-bool.cmake-tools",
+    "cmake.generator": "Unix Makefiles",
+    "cmake.installPrefix": "${workspaceFolder}/../../../install_root",
+    "cmake.configureSettings": {
+        "CMAKE_PREFIX_PATH" : "${workspaceFolder}/../../../install_root"
+    },
+    "restructuredtext.confPath": "${workspaceFolder}/build/docs",
+    "python.pythonPath": "/usr/bin/python3"
+}
