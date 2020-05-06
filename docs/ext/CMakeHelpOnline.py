@@ -117,10 +117,12 @@ class CMakePropertyTargetRole(CMakeRole):
     def build_uri(self) -> str:
         property_target_url = self.cmake_help_base_url + "prop_tgt/"
         target_property_name = self.target.upper()
-        return property_target_url + target_property_name + ".html#prop_tgt:" + target_property_name
+        target_property_name_escaped = target_property_name.replace(r"""_<CONFIG>""", '_CONFIG')
+        return property_target_url + target_property_name_escaped + ".html#prop_tgt:" + target_property_name
 
     def build_title(self) -> str:
-        return self.title.upper()
+        title = self.title.upper()
+        return title
 
 class CMakeManualRole(CMakeRole):
     def get_entry_name(self) -> str:
@@ -139,6 +141,34 @@ class CMakeManualRole(CMakeRole):
         title = sub(r"\.([0-9])","(\\1)", title)
         return title
 
+class CMakeReleaseRole(CMakeRole):
+    def get_entry_name(self) -> str:
+        return 'CMAKE_RELEASE; CMAKE_RELEASE %s'
+    
+    def get_reference_class(self) -> str:
+        return 'cmake_release'
+
+    def build_uri(self) -> str:
+        release_url = self.cmake_help_base_url + "release/"
+        target = self.target.split()
+        if len(target) == 1:
+            release_name = target[0]
+        else:
+            release_name = target[1]
+        return release_url + release_name + ".html"
+
+    def build_title(self) -> str:
+        title = self.title
+        title = title.split()
+        if len(title) == 1:
+            return 'CMake.' + title[0]
+        else:
+            if title[0] == '<':
+                return "CMake." + title[1] + "-"
+            elif title[0] == '>':
+                return "CMake." + title[1] + "+"
+
+
 custom_docroles = {
     'cmake:command': CMakeCommandRole(),
     #'cpack_gen':  CMakeXRefRole(),
@@ -155,7 +185,8 @@ custom_docroles = {
     #'prop_sf':    CMakeXRefRole(),
     #'prop_test':  CMakeXRefRole(),
     'cmake:prop_tgt': CMakePropertyTargetRole(),
-    'cmake:manual' : CMakeManualRole()
+    'cmake:manual' : CMakeManualRole(),
+    'cmake:release' : CMakeReleaseRole()
 }  # type: Dict[str, RoleFunction]
 
 def setup(app: "Sphinx") -> Dict[str, Any]:
