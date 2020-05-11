@@ -1,0 +1,44 @@
+a.cmake {
+    color: #2b63a8;
+    font-family: sans-serif;
+}
+
+a.cmake_release {
+    border-radius: 10px;
+    border-style: solid;
+    border-width: 1pt;
+    border-color: grey;
+    background-color: springgreen;
+    padding: 2px;
+    padding-left: 3px;
+    padding-right: 3px;
+    line-height: 28px;
+}
+
+.cmake-inline {
+    font-family: 'Consolas', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
+    background-color: #EEEE;
+    font-size: 0.9em;
+    line-height: 1.3em;
+}
+
+.cmake-inline-keyword {
+    color: #4070a0;
+}
+
+.cmake-inline-command {
+    color: #004461;
+}
+
+.cmake-inline-variable {
+    color: #4e9a06;
+}
+
+.cmake-inline-target {
+    color: #4e9a06;
+    font-weight: 600;
+}
+
+.cmake-inline-literal-unquoted {
+    color: #06b5dc;
+}

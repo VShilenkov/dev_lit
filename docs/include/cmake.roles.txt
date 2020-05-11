@@ -1,0 +1,19 @@
+
+.. role:: inline_cmake(code)
+    :language: cmake
+    :class: cmake-inline
+
+.. role:: cmake:inline:keyword
+    :class: cmake-inline cmake-inline-keyword
+
+.. role:: cmake:inline:command
+    :class: cmake-inline cmake-inline-command
+
+.. role:: cmake:inline:variable
+    :class: cmake-inline cmake-inline-variable
+
+.. role:: cmake:inline:target
+    :class: cmake-inline cmake-inline-target
+
+.. role:: cmake:inline:literal:unquoted
+    :class: cmake-inline cmake-inline-literal cmake-inline-literal-unquoted
