@@ -2,3 +2,20 @@ div.code-block-caption {
     text-align: right;
     font-weight: 700;
 }
+
+div.admonition-recommended {
+    background-color: #c3d6aa;
+    padding-left: 10;
+}
+
+div.admonition-recommended>p.admonition-title {
+    font-family: Tahoma, serif;
+    color: #092b6d;
+    font-style: normal;
+}
+
+div.admonition-recommended>p {
+    padding-left: 20px;
+    text-indent: 10px;
+    font-style: italic;
+}

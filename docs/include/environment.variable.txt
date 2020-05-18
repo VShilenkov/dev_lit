@@ -1,0 +1,9 @@
+--------------------------------------------------------------------------------
+
+******************************
+List of Environment Variables
+******************************
+
+.. envvar:: PATH
+
+    Specifying a set of directories where executable programs are located

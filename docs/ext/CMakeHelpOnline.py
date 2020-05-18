@@ -1,4 +1,4 @@
-from re import sub
+from re import sub, compile, match
 from typing import Any, Dict, List, Tuple, Type
 from docutils import nodes
 from docutils.nodes import Element, Node, TextElement, system_message
@@ -48,25 +48,29 @@ class CMakeRole(ReferenceRole):
         return [index, target, reference], []
 
 class CMakeCommandRole(CMakeRole):
+    command_role_re = r"^(\w+?)(\((\w*?)\)(\s(command|sub-command)\s\<\1\>)?)?$"
+
+    def command(self) -> str:
+        command = sub(self.command_role_re, "\\1", self.target)
+        return '' if command is None else command.lower()
+
+    def subcommand(self) -> str:
+        subcommand = sub(self.command_role_re, "\\3", self.target)
+        return '' if subcommand is None else subcommand.upper()
+
     def get_entry_name(self) -> str:
-        command_name = sub("(\w]+)\(.*", "\\1", self.target.lower())
-        return 'Command [CMake]; %s' % command_name
+        return 'Command [CMake]; %s' % self.command()
     
     def get_reference_class(self) -> List[str]:
         return ['cmake_command']
 
     def build_uri(self) -> str:
-        # list(APPEND)
-        # list() command <list>
-        # list(APPEND) sub-command <list>
         command_url = self.cmake_help_base_url + "command/"
-        command_name = self.target.lower()
-        command_name = sub("\(\)", "", command_name)
-        return command_url + command_name + ".html#command:" + command_name
+        subcommand = sub("_", "-", self.subcommand().lower())
+        return command_url + self.command() + ".html#" + subcommand
 
     def build_title(self) -> str:
-        command_name = sub("\(\)", "", self.title.lower())
-        return command_name + '()'
+        return self.command() + '(' + self.subcommand() + ')'
 
 class CMakeVariableEnvironmentRole(CMakeRole):
     def get_entry_name(self) -> str:
@@ -178,11 +182,13 @@ class CMakePropertyTargetRole(CMakeRole):
         return title
 
 class CMakeManualRole(CMakeRole):
+    manual_role_re = r"([a-zA-Z0-9_-]+)\.([0-9])"
+
     def manual_name(self) -> str:
-        return sub(r"([a-zA-Z0-9_-]+)\.([0-9])","\\1", self.target.split()[0].lower())
+        return sub(self.manual_role_re, "\\1", self.target.split()[0].lower())
 
     def manual_section(self) -> str:
-        return sub(r"([a-zA-Z0-9_-]+)\.([0-9])","\\2", self.target.split()[0].lower())
+        return sub(self.manual_role_re, "\\2", self.target.split()[0].lower())
 
     def get_entry_name(self) -> str:
         return 'Manual [CMake]; %s(%s)' % (self.manual_name(), self.manual_section())
