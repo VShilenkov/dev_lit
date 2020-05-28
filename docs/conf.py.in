@@ -16,13 +16,13 @@ pygments_style = 'CMakeColors.CMakeTemplateStyle'
 #primary_domain = 'none'
 highlight_language = 'none'
 
-extensions = ['CMakeHelpOnline', 'CMakePygmentsLexer']
+extensions = ['CMakeHelpOnline', 'CMakePygmentsLexer', "Biblio"]
 
 templates_path = ['@docs_conf_path@/templates']
 
 html_show_sourcelink = True
 html_static_path = ['@docs_conf_path@/static']
-html_css_files = ['dev_lit.css', 'cmake.css', 'colors.base.css']
+html_css_files = ['dev_lit.css', 'cmake.css', 'colors.base.css', 'book.catalogue.css']
 html_title = 'Development Literature %s' % release
 html_short_title = '%s DevLit' % release
 
