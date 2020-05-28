@@ -1,0 +1,21 @@
+
+.. athenaeum:book:: book_name
+    :subtitle: string
+    :title_localized: string
+    :subtitle_localized: string
+    :authors: author_list
+    :tags: tag_list
+
+    :issue:
+    :year: 
+    :language: 
+    :edition: 
+    :series: 
+    :volume: 
+    :volume_name: 
+    :part: 
+    :part_name: 
+    :fascicle: 
+    :fascicle_name:
+    :link Amazon:
+    :link Ozon:
