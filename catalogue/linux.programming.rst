@@ -53,7 +53,7 @@ Programming for Linux
     :year: 2019
     :language: rus
     :edition: 1
-    :series: Библиотека про­граммиста
+    :series: Библиотека программиста
     :link Amazon: https://www.amazon.com/Linux-Action-David-Clinton/dp/1617294934/
     :link Ozon: https://www.ozon.ru/context/detail/id/153976436/
 

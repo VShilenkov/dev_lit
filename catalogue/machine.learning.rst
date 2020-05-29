@@ -14,7 +14,7 @@ Machine Learning
     :year: 2020
     :language: rus
     :edition: 1
-    :series: Бестселлеры O’Reilly
+    :series: Бестселлеры O'Reilly
     :link Amazon: https://www.amazon.com/Natural-Language-Processing-PyTorch-Applications-ebook/dp/B07N17TMFH
     :link Piter: https://www.piter.com/product/znakomstvo-s-pytorch-glubokoe-obuchenie-pri-obrabotke-estestvennogo-yazyka
 

@@ -18,5 +18,7 @@ Indices and tables
 
 * :ref:`genindex`
 * :ref:`athenaeum-author`
+* :ref:`athenaeum-all_books`
+* :ref:`athenaeum-series`
 * :ref:`modindex`
 * :ref:`search`

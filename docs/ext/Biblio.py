@@ -377,18 +377,23 @@ class Author:
 
 class Book:
 
+    classes = {
+        'authors': ['book-authors-title'],
+        'issues': ['book-issues-title'],
+    }
+
     def __init__(self
                 , title:              str
                 , authors:            List["Author"]
-                , target_id:          int
+                , id:                 int
                 , issues:             List["Issue"] = []
                 , subtitle:           str = ''
                 , title_localized:    str = ''
                 , subtitle_localized: str = ''
                 , tags:               List[str] = []):
-        self.title      = title
+        self.title              = title
         self.authors            = authors
-        self.target_id          = target_id
+        self.id                 = 'book-%s' % id
         self.issues             = issues
         self.subtitle           = subtitle
         self.title_localized    = title_localized
@@ -396,7 +401,9 @@ class Book:
         self.tags               = tags
 
     def build_node_authors(self) -> nodes.Node:
-        authors_node = nodes.paragraph(text='Authors', classes=['book-authors-title'])
+        authors_node = nodes.paragraph(text='Authors'
+                                      , classes=self.classes['authors'])
+
         authors_bullet_list = nodes.bullet_list(bullet='-')
         for a in self.authors:
             author_list_item = nodes.list_item()
@@ -407,7 +414,8 @@ class Book:
         return authors_node
 
     def build_node_issues(self) -> nodes.Node:
-        issues_node = nodes.paragraph(text='Issues', classes=['book-issues-title'])
+        issues_node = nodes.paragraph(text='Issues', classes=self.classes['issues'])
+
         issues_bullet_list = nodes.bullet_list(bullet='-')
         for i in self.issues:
             issue_list_item = nodes.list_item()
@@ -419,21 +427,19 @@ class Book:
 
     def build_folder_title(self) ->str:
         authors_part = []
-        authors_count = 0
         for author in self.authors:
-            if authors_count >= 3:
+            if len(authors_part) > 3:
                 break
 
             authors_part.append(author.build_file_component())
 
         authors_str = ','.join(authors_part)
-        p = re.compile(r'[ :\\/]')
-        title_str = p.sub('_', self.title)
+        title_str = re.compile(r'[ :\\/]').sub('_', self.title)
         return '{}-{}'.format(authors_str, title_str)
 
     def build_node(self) -> nodes.Node:
         book_topic = nodes.topic(classes=['book-topic'])
-        book_topic += nodes.target('', '', ids=['book-%s' % self.target_id])
+        book_topic += nodes.target('', '', ids=[self.id])
         book_title = nodes.paragraph(text=self.title, classes=['book-title'])
         if not self.subtitle == '':
             book_title += nodes.inline(text=': ', classes=['book-punctuation'])
@@ -564,11 +570,11 @@ class AuthorIndex(Index):
     def generate(self, docnames=None):
         content = defaultdict(list)
 
-        authors = self.domain.data['authors_id']
+        authors = self.domain.data['authors']
 
-        for name, dispname, typ, docname, anchor, _ in authors:
+        for name, dispname, typ, docname, anchor, prio, a_id  in authors:
             content[dispname[0].lower()].append(
-                (dispname, 0, docname, anchor, docname, '', typ))
+                (dispname, 0, docname, anchor, '', '', typ))
 
         content = sorted(content.items())
 
@@ -584,51 +590,76 @@ class BookAllIndex(Index):
 
         books = self.domain.data['books']
 
-        for name, dispname, typ, docname, anchor, _ in books:
+        for name, dispname, typ, docname, anchor, prio, authors, series in books:
+            desc_list = []
+            for a in authors:
+                desc_list.append(a.last_name)
+            desc = ', '.join(desc_list)
             content[dispname[0].lower()].append(
-                (dispname, 0, docname, anchor, docname, '', typ))
+                (dispname, 0, docname, anchor, desc, '', typ))
 
         content = sorted(content.items())
 
         return content, True
 
-class BRand(Index):
-    name = 'brand'
-    localname = 'Piska local'
-    shortname = 'Piska short'
+class SeriesIndex(Index):
+    name = 'series'
+    localname = 'Series Index'
+    shortname = 'Series'
 
     def generate(self, docnames=None):
         content = defaultdict(list)
 
-        content['a'].append(
-                ('dispname', 0, 'athenaeum-author', '', 'docname', '', 'typ'))
+        domain_series = self.domain.data['series']
+
+        for name, dispname, typ, docname in domain_series:
+            content[dispname[0].lower()].append(
+                (dispname, 0, docname, '', '', '', typ))
 
         content = sorted(content.items())
 
         return content, True
 
-def common_name_generator(self, docnames=None):
+def author_book_list_generator(self, docnames=None):
     content = defaultdict(list)
 
-    authors = self.domain.data['authors_id']
+    books = self.domain.data['books']
 
-    for name, dispname, typ, docname, anchor, _ in authors:
-        if (dispname[0].lower() == self.magic_letter):
+    for name, dispname, typ, docname, anchor, prio, authors, series in books:
+        found = False
+        for auth in authors:
+            if auth.last_name == self.magic_author.last_name \
+                and auth.first_name == self.magic_author.first_name:
+                found = True
+
+        if found:
+            desc_list = []
+            for a in authors:
+                desc_list.append(a.last_name)
+            desc = ', '.join(desc_list)
             content[dispname[0].lower()].append(
-                (dispname, 0, docname, anchor, docname, '', typ))
+                (dispname, 0, docname, anchor, desc, '', typ))
 
     content = sorted(content.items())
 
     return content, True
 
-name_a = type("authors_A"
-            , (Index, )
-            , {'magic_letter': 'a'
-                , 'name': 'author_letter_a'
-                , 'localname': 'author_letter_a'
-                , 'shortname': 'author_letter_a'
-                , 'generate': common_name_generator
-                ,})
+def series_book_generator(self, docnames=None):
+    content = defaultdict(list)
+    books = self.domain.data['books']
+
+    for name, dispname, typ, docname, anchor, prio, authors, series in books:
+        if self.magic_series in series:
+            desc_list = []
+            for a in authors:
+                desc_list.append(a.last_name)
+            desc = ', '.join(desc_list)
+            content[dispname[0].lower()].append(
+                (dispname, 0, docname, anchor, desc, '', typ))
+
+    content = sorted(content.items())
+
+    return content, True
 
 class Athenaeum(Domain):
     name = 'athenaeum'
@@ -640,12 +671,11 @@ class Athenaeum(Domain):
     indices = [
         AuthorIndex,
         BookAllIndex,
-        BRand,
-        name_a
+        SeriesIndex,
     ]
     initial_data = {
         'books': [],
-        'authors_id': [],
+        'authors': [],
         'series': [],
     }
 
@@ -655,17 +685,50 @@ class Athenaeum(Domain):
 
     def add_author(self, author: "Author") -> None:
         name = author.get_full_name()
-        anchor = author.id
+        anchor = author.id # must be empty
+        # docname should be replaced with generated name
 
-        exists = next((x for x in self.data['authors_id'] if (
-            x[0] == name) and (x[4] == anchor)), False)
+        exists = next((x for x in self.data['authors'] if
+                       x[0] == name), False)
 
         if not exists:
-            self.data['authors_id'].append(
-                (name, author.get_displayable_name(), 'Author', self.env.docname, anchor, 0))
+            a_id = len(self.data['authors'])
+
+            author_generator = type('authors_%s_generator' % a_id
+                        , (Index, )
+                        , {'magic_author': author
+                        , 'name': 'author_%s' % a_id
+                        , 'localname': '{} {}'.format(author.last_name, author.first_name)
+                        , 'shortname': author.last_name
+                        , 'generate': author_book_list_generator
+                        ,})
+
+            self.indices.append(author_generator)
+
+            self.data['authors'].append(
+                (name, author.get_displayable_name(), 'Author', 'athenaeum-author_%s' % a_id, anchor, 0, a_id))
 
     def add_series(self, series:str) -> None:
-        pass
+        name = series.replace(' ', '_')
+
+
+        exists = next((x for x in self.data['series'] if x[1] == series), False)
+
+        if not exists:
+
+            s_id = len(self.data['series'])
+
+            series_generator = type('series_%s_generator' % s_id
+                                    , (Index, )
+                                    , {'magic_series': series
+                                        , 'name': 'series_%s' % s_id
+                                        , 'localname': series
+                                        , 'shortname': series
+                                        , 'generate': series_book_generator
+                                        ,})
+
+            self.indices.append(series_generator)
+            self.data['series'].append((name, series, 'Series', 'athenaeum-series_%s' % s_id))
 
     def add_book(self, book: "Book") -> None:
         for a in book.authors:
@@ -675,19 +738,21 @@ class Athenaeum(Domain):
             if not i.series == '':
                 self.add_series(i.series)
 
-        name = '{}.{}'.format('book', book.title)
-        for a in book.authors:
-            name += '.{}'.format(a.last_name)
-
-        dispname = book.title
-        anchor = 'book-%s' % book.target_id
-
-        self.data['books'].append((name, dispname, 'Book', self.env.docname, anchor, 1))
         
-    #def get_authors(self):
-    #    for obj in self.data['authors']:
-    #        yield obj
+        authors_last_names = []
+        for a in book.authors:
+            authors_last_names.append(a.last_name)
+        
+        authors_str = '.'.join(authors_last_names)
+        name = '{}.{}.{}'.format('book', book.title, authors_str)
 
+        series = []
+        for i in book.issues:
+            if i.series != '':
+                series.append(i.series)
+
+        self.data['books'].append((name, book.title, 'Book', self.env.docname, book.id, 1, book.authors, series))
+        
 
 def setup(app: "Sphinx") -> Dict[str, Any]:
     app.add_domain(Athenaeum)
