@@ -93,151 +93,213 @@ class ParseError(Exception):
 
 class Issue:
 
-    def __init__(self, year, language, edition=1, series='', volume=0, 
-                 volume_name='', part=0, part_name='', fascicle=0,
-                 fascicle_name='', links: Dict[str, str] = {}):
-        self.year = year
-        self.language = language
-        self.edition = edition
-        self.series = series
-        self.volume = volume
-        self.volume_name = volume_name
-        self.part = part
-        self.part_name = part_name
-        self.fascicle = fascicle
+    classes = {
+        'year':         ['book-issue-year'],
+        'volume':       ['book-issue-volume'],
+        'fascicle':     ['book-issue-fascicle'],
+        'part':         ['book-issue-part'],
+        'punctuation':  ['book-issue-punctuation'],
+        'title':        ['book-issue-title'],
+        'language':     ['book-issue-language'],
+        'series':       ['book-issue-series'],
+        'filename':     ['book-issue-filename']
+    }
+
+    languages_dict = {
+        'ENG' : 'English',
+        'RUS' : 'Russian'
+    }
+
+    def __init__(self
+                , year:          str
+                , language:      str
+                , edition:       int = 1
+                , series:        str = ''
+                , volume:        str = ''
+                , volume_name:   str = ''
+                , part:          int = 0
+                , part_name:     str = ''
+                , fascicle:      int = 0
+                , fascicle_name: str = ''
+                , links:         Dict[str, str] = {}):
+        self.year          = year
+        self.language      = language
+        self.edition       = edition
+        self.series        = series
+        self.volume        = volume
+        self.volume_name   = volume_name
+        self.part          = part
+        self.part_name     = part_name
+        self.fascicle      = fascicle
         self.fascicle_name = fascicle_name
-        self.links = links
+        self.links         = links
 
     @classmethod
     def init_from_raw(cls, raw_source: List[str]):
         raw = {
-            'year': '',
-            'language': '',
-            'edition': '',
-            'series': '',
-            'volume': '',
-            'volume_name': '',
-            'part': '',
-            'part_name': '',
-            'fascicle' : '',
+            'year':          '',
+            'language':      '',
+            'edition':       '',
+            'series':        '',
+            'volume':        '',
+            'volume_name':   '',
+            'part':          '',
+            'part_name':     '',
+            'fascicle':      '',
             'fascicle_name': '',
-            'links' : {}
+            'links':         {}
         }
+
         lexer = {
-            'year': re.compile(r'^\:year\:\s+(\d{4})'),
-            'language': re.compile(r'^\:language\:\s+([A-Za-z]{3})'),
-            'edition': re.compile(r'^\:edition\:\s+(\d+)'),
-            'series' : re.compile(r'^\:series\:\s+(.*?)$'),
-            'volume' : re.compile(r'\:volume\:\s+(\w+)'),
-            'volume_name' : re.compile(r'^\:volume_name\:\s+(.*?)$'),
-            'part' : re.compile(r'\:part\:\s(\w+)'),
-            'part_name' : re.compile(r'^\:part_name\:\s+(.*?)$'),
-            'fascicle' : re.compile(r'\:fascicle\:\s(\w+)'),
-            'fascicle_name' : re.compile(r'^\:fascicle_name\:\s+(.*?)$'),
-            'links' : re.compile(r'^\:link\s+(\w+)\:\s+(.*)$')
+            'year':          re.compile(r'^\:year\:\s+(\d{4})'),
+            'language':      re.compile(r'^\:language\:\s+([A-Za-z]{3})'),
+            'edition':       re.compile(r'^\:edition\:\s+(\d+)'),
+            'series':        re.compile(r'^\:series\:\s+(.*?)$'),
+            'volume':        re.compile(r'\:volume\:\s+(\w+)'),
+            'volume_name':   re.compile(r'^\:volume_name\:\s+(.*?)$'),
+            'part':          re.compile(r'\:part\:\s(\w+)'),
+            'part_name':     re.compile(r'^\:part_name\:\s+(.*?)$'),
+            'fascicle':      re.compile(r'\:fascicle\:\s(\w+)'),
+            'fascicle_name': re.compile(r'^\:fascicle_name\:\s+(.*?)$'),
+            'links':         re.compile(r'^\:link\s+(\w+)\:\s+(.*)$')
         }
 
         for line in raw_source:
             match_links = lexer['links'].match(line)
-            if match_links:
+            if match_links: # not unique fields
                 raw['links'][match_links.group(1)] = match_links.group(2)
-                continue
+            else:           # unique fields
+                for field in raw:
+                    match = lexer[field].match(line)
+                    if match:
+                        if raw[field] == '':
+                            if not match.group(1) == '':
+                                raw[field] = match.group(1)
+                        else:
+                            raise ParseError("Issue: field duplication " + field)
 
-            for field in ['year', 'language', 'edition', 'series', 'volume', 
-            'volume_name', 'part', 'part_name', 'fascicle', 'fascicle_name']:
-                match = lexer[field].match(line)
-                if match:
-                    if raw[field] == '':
-                        if not match.group(1) == '':
-                            raw[field] = match.group(1)
-                    else:
-                        raise ParseError("Field duplication " + field)
-            
-        return Issue(raw['year'], raw['language'], raw["edition"], raw['series']
-             , raw["volume"], raw["volume_name"], raw["part"], raw["part_name"]
-             , raw["fascicle"], raw["fascicle_name"], raw['links'])
+        if raw['part'] == '':
+            raw['part'] = 0
+        
+        if raw['fascicle'] == '':
+            raw['fascicle'] = 0
+
+        return Issue(raw['year']
+                    , raw['language']
+                    , int(raw["edition"])
+                    , raw['series']
+                    , raw["volume"]
+                    , raw["volume_name"]
+                    , int(raw["part"])
+                    , raw["part_name"]
+                    , int(raw["fascicle"])
+                    , raw["fascicle_name"]
+                    , raw['links'])
+
+    def build_issue_title_prefix_node(self) -> nodes.Node:
+        prefix_node = nodes.inline()
+
+        if self.volume != '':
+            prefix_node += nodes.inline(text=', Volume {}'.format(self.volume)
+                                       , classes=self.classes['volume'])
+
+        if self.fascicle != 0:
+            prefix_node += nodes.inline(text=', Fascicle {}'.format(self.fascicle)
+                                       , classes=self.classes['fascicle'])
+
+        if self.part != 0:
+            prefix_node += nodes.inline(text=', Part {}'.format(self.part)
+                                       , classes=self.classes['part'])
+
+        prefix_node += nodes.inline(text=":"
+                                   , classes=self.classes['punctuation'])
+
+        return prefix_node
 
     def build_issue_title(self) -> str:
         issue_title = ''
 
-        if not self.part_name == '':
+        if self.part_name != '':
             issue_title = self.part_name
-        elif not self.fascicle_name == '':
+        elif self.fascicle_name != '':
             issue_title = self.fascicle_name
-        elif not self.volume_name == '':
+        elif self.volume_name != '':
             issue_title = self.volume_name
 
         return issue_title
 
+    def build_issue_title_node(self) -> nodes.Node:
+        issue_title_node = nodes.inline(
+            text=self.build_issue_title(), classes=self.classes['title'])
+
+        issue_title_node += nodes.inline(text=" - ",
+                                         classes=self.classes['punctuation'])
+
+        return issue_title_node
+
     def build_file_component(self) -> str:
         file_component_str = '({}.{})'.format(self.year, int_to_roman(int(self.edition)))
-        if not (self.volume == 0 or self.volume == ''):
+        if self.volume != '':
             file_component_str += '.V{}'.format(self.volume)
-        if not (self.fascicle == 0 or self.fascicle == ''):
+        if self.fascicle != 0:
             file_component_str += '.F{}'.format(self.fascicle)
-        if not (self.part == 0 or self.part == ''):
+        if self.part != 0:
             file_component_str += '.P{}'.format(self.part)
 
         issue_title = self.build_issue_title()
 
         if not issue_title == '':
-            p = re.compile(r'\s')
-            issue_title = p.sub('_', issue_title)
+            issue_title = re.compile(r'\s').sub('_', issue_title)
             file_component_str += '.{}'.format(issue_title)
 
         file_component_str += '.[{}]'.format(self.language.upper())
 
         return file_component_str
 
+    def build_language_node(self) -> nodes.Node:
+        language_string = self.language.upper()
+
+        if language_string in self.languages_dict:
+            language_string = self.languages_dict[language_string]
+
+        return nodes.inline(text=' ({})'.format(language_string)
+                           , classes=self.classes['language'])
+
+    def build_link_node(self, link) -> nodes.Node:
+        reference = nodes.reference(
+            '', '', internal=False, refuri=self.links[link])
+        reference += nodes.strong(link, link)
+        return reference
+
     def build_node(self) -> nodes.Node:
         issue_node = nodes.paragraph()
-        issue_node += nodes.strong(text=self.year, classes=['book-issue-year'])
-        if not (self.volume == 0 or self.volume == ''):
-            issue_node += nodes.inline(text= ', Volume {}'.format(self.volume), classes=['book-issue-volume'])
 
-        if not (self.fascicle == 0 or self.fascicle == ''):
-            issue_node += nodes.inline(text= ', Fascicle {}'.format(self.fascicle), classes=['book-issue-fascicle'])
-
-        if not (self.part == 0 or self.part == ''):
-            issue_node += nodes.inline(text= ', Part {}'.format(self.part), classes=['book-issue-part'])
-
-
-        issue_node += nodes.inline(text=":", classes=['book-issue-punctuation'])
-
-        issue_title = self.build_issue_title()
-
-        if not issue_title == '':
-            issue_node += nodes.inline(text=issue_title, classes=['book-issue-title'])
-
-        issue_node += nodes.inline(text=" - ", classes=['book-issue-punctuation'])
-
+        issue_node += nodes.strong(text=self.year, classes=self.classes['year'])
+        issue_node += self.build_issue_title_prefix_node()
+        issue_node += self.build_issue_title_node()
         issue_node += nodes.inline(text='%s edition' % (int_to_roman(int(self.edition))))
-
-        language_string = self.language
-        if self.language.upper() == 'ENG':
-            language_string = 'English'
-        elif self.language.upper() == 'RUS':
-            language_string = 'Russian'
-
-        issue_node += nodes.inline(text=' ({})'.format(language_string), classes=['book-issues-language'])
-
+        issue_node += self.build_language_node()
+        
         if not self.series == '':
-            issue_node += nodes.inline(text=' | ', classes=['book-issues-punctuation'])
-            issue_node += nodes.inline(text=self.series, classes=['book-issues-series'])
+            issue_node += nodes.inline(text=' | ', classes=self.classes['punctuation'])
+            issue_node += nodes.inline(text=self.series, classes=self.classes['series'])
 
         info_bullet_list = nodes.bullet_list(bullet='*')
 
-        for link_name in self.links:
+        if len(self.links) > 0:
             link_item = nodes.list_item()
             link_par = nodes.paragraph()
-            reference = nodes.reference('', '', internal=False, refuri=self.links[link_name])
-            reference += nodes.strong(link_name,link_name)
-            link_par += reference
+
+            for link_name in self.links:
+                link_par += self.build_link_node(link_name)
+                link_par += nodes.inline(text=' ')
+
             link_item += link_par
             info_bullet_list += link_item
 
         file_name_item = nodes.list_item()
-        file_name_item += nodes.paragraph(text=self.build_file_component(), classes=['book-issue-filename'])
+        file_name_item += nodes.paragraph(
+            text=self.build_file_component(), classes=self.classes['filename'])
         info_bullet_list += file_name_item
 
         issue_node += info_bullet_list
@@ -315,20 +377,23 @@ class Author:
 
 class Book:
 
-    def __init__(self, title: str, authors: List["Author"], target_id: int,
-                 issues: List["Issue"] = [], subtitle: str = '', title_localized: str = '',
-                 subtitle_localized: str = '', tags: List[str] = []):
-        self.title = title
-        self.authors = authors
-        self.target_id = target_id
-        self.issues = issues
-        self.subtitle = subtitle
-        self.title_localized = title_localized
+    def __init__(self
+                , title:              str
+                , authors:            List["Author"]
+                , target_id:          int
+                , issues:             List["Issue"] = []
+                , subtitle:           str = ''
+                , title_localized:    str = ''
+                , subtitle_localized: str = ''
+                , tags:               List[str] = []):
+        self.title      = title
+        self.authors            = authors
+        self.target_id          = target_id
+        self.issues             = issues
+        self.subtitle           = subtitle
+        self.title_localized    = title_localized
         self.subtitle_localized = subtitle_localized
-        self.tags = tags
-
-    def add_issue(self, issue: "Issue"):
-        self.issues.append(issue)
+        self.tags               = tags
 
     def build_node_authors(self) -> nodes.Node:
         authors_node = nodes.paragraph(text='Authors', classes=['book-authors-title'])
