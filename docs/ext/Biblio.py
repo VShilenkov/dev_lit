@@ -428,11 +428,11 @@ class Book:
     def build_folder_title(self) ->str:
         authors_part = []
         for author in self.authors:
-            if len(authors_part) > 3:
+            if len(authors_part) > 2:
                 break
 
             authors_part.append(author.build_file_component())
-
+        
         authors_str = ','.join(authors_part)
         title_str = re.compile(r'[ :\\/]').sub('_', self.title)
         return '{}-{}'.format(authors_str, title_str)
@@ -600,6 +600,8 @@ class BookAllIndex(Index):
             content[dispname[0].lower()].append(
                 (dispname, 0, docname, anchor, desc, '', typ))
 
+        for k in content:
+            content[k].sort()
         content = sorted(content.items())
 
         return content, True
@@ -618,6 +620,9 @@ class SeriesIndex(Index):
             content[dispname[0].lower()].append(
                 (dispname, 0, docname, '', '', '', typ))
 
+        for k in content:
+            content[k].sort()
+
         content = sorted(content.items())
 
         return content, True
@@ -635,6 +640,9 @@ class TagsIndex(Index):
         for name, dispname, typ, docname in domain_tags:
             content[dispname[0].lower()].append(
                 (dispname, 0, docname, '', '', '', typ))
+
+        for k in content:
+            content[k].sort()
 
         content = sorted(content.items())
 
@@ -661,6 +669,9 @@ def author_book_list_generator(self, docnames=None):
             content[dispname[0].lower()].append(
                 (dispname, 0, docname, anchor, desc, '', typ))
 
+    for k in content:
+        content[k].sort()
+
     content = sorted(content.items())
 
     return content, True
@@ -677,6 +688,9 @@ def series_book_generator(self, docnames=None):
             desc = ', '.join(desc_list)
             content[dispname[0].lower()].append(
                 (dispname, 0, docname, anchor, desc, '', typ))
+
+    for k in content:
+        content[k].sort()
 
     content = sorted(content.items())
 
@@ -696,11 +710,9 @@ def tags_book_generator(self, docnames=None):
             content[dispname[0].lower()].append(
                 (dispname, 0, docname, anchor, desc, '', typ))
 
+    for k in content:
+        content[k].sort()
     content = sorted(content.items())
-
-    if self.magic_tag == 'C++':
-        pass #raise Exception(len(content))
-
 
     return content, True
 

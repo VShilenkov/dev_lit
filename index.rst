@@ -20,5 +20,6 @@ Indices and tables
 * :ref:`athenaeum-author`
 * :ref:`athenaeum-all_books`
 * :ref:`athenaeum-series`
+* :ref:`athenaeum-tags`
 * :ref:`modindex`
 * :ref:`search`
