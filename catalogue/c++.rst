@@ -1099,6 +1099,12 @@ C++
     :edition: 6
     :link Amazon: https://www.amazon.com/Plus-Data-Structures-Nell-Dale-ebook/dp/B01KB62X5M
 
+    :issue:
+    :year: 2003
+    :language: eng
+    :edition: 3
+    :link Amazon: https://www.amazon.com/Plus-Data-Structures-Nell-Dale/dp/0763704814
+
 
 .. athenaeum:book:: Brief C++
     :subtitle: Late Objects
@@ -1148,6 +1154,13 @@ C++
     :series: C++ in Depth
     :link Amazon: https://www.amazon.com/Discovering-Modern-Scientists-Programmers-Depth/dp/0134383583
     :link Labirint: https://www.labirint.ru/books/740964/
+
+    :issue:
+    :year: 2015
+    :language: eng
+    :edition: 1
+    :series: C++ in Depth
+    :link Amazon: https://www.amazon.com/Discovering-Modern-Scientists-Programmers-Depth/dp/0134383583
 
 
 .. athenaeum:book:: От Си к С++
@@ -1287,6 +1300,7 @@ C++
 .. athenaeum:book:: The C++ Standard Library
     :subtitle: A Tutorial and Reference
     :title_localized: C++ Стандартная библиотека
+    :subtitle_localized: Справочное руководство
     :authors: Nicolai M. Josuttis
     :tags: C++, STL
 
@@ -1297,6 +1311,19 @@ C++
     :series: Для профессионалов
     :link Amazon: https://www.amazon.com/Standard-Library-Tutorial-Reference/dp/0201379260
     :link progbook: http://progbook.ru/c/178-dzhosyutis_c_standartnaya_biblioteka.html
+
+    :issue:
+    :year: 2012
+    :language: eng
+    :edition: 2
+    :link Amazon: https://www.amazon.com/Standard-Library-Tutorial-Reference-2nd/dp/0321623215
+
+    :issue:
+    :year: 2014
+    :language: rus
+    :edition: 2
+    :link Amazon: https://www.amazon.com/Standard-Library-Tutorial-Reference-2nd/dp/0321623215
+    :link books.ru: https://www.books.ru/books/standartnaya-biblioteka-c-spravochnoe-rukovodstvo-vtoroe-izdanie-4985287/
 
 
 .. athenaeum:book:: Introduction to C++
@@ -1947,3 +1974,207 @@ C++
     :language: eng
     :edition: 1
     :link Google: https://books.google.de/books/about/C++_Succinctly.html
+
+
+.. athenaeum:book:: Data Structures and Other Objects Using C++
+    :authors: Michael Main, Walter Savitch
+    :tags: C++, Data Structures, OOP
+
+    :issue:
+    :year: 2010
+    :language: eng
+    :edition: 4
+    :link Amazon: https://www.amazon.com/Data-Structures-Other-Objects-Using/dp/0132129485
+
+
+.. athenaeum:book:: Advanced C and C++ Compiling
+    :subtitle: An engineering guide to compiling, linking, and libraries using C and C++
+    :authors: Milan Stevanovic
+    :tags: C++, Compiling, Linking
+
+    :issue:
+    :year: 2014
+    :language: eng
+    :edition: 1
+    :link Amazon: https://www.amazon.com/Advanced-C-Compiling-Milan-Stevanovic/dp/1430266678
+    :link APress: https://www.apress.com/gp/book/9781430266679
+
+
+.. athenaeum:book:: C++
+    :authors: Nathan Clark
+    :tags: C++
+
+    :issue:
+    :year: 2017
+    :language: eng
+    :edition: 1
+    :series: Step-By-Step C++
+    :volume: 2
+    :volume_name: A Detailed Approach to Practical Coding
+    :link Amazon: https://www.amazon.com/Detailed-Approach-Practical-Step-Step/dp/1545122075
+
+
+.. athenaeum:book:: Programming in C++
+    :title_localized: Программирование на C++
+    :authors: Nell Dale, Chip Weems, Mark R. Headington
+    :tags: C++
+
+    :issue:
+    :year: 2007
+    :language: rus
+    :edition: 1
+    :series: Учебник
+    :link Amazon: https://www.amazon.com/dp/B01A658YY2
+    :link LitMy: https://litmy.ru/knigi/programming/213263-programmirovanie-na-s-2007.html
+
+
+.. athenaeum:book:: Programming and Problem Solving with C++
+    :subtitle: Comprehensive
+    :authors: Nell Dale, Chip Weems
+    :tags: C++
+
+    :issue:
+    :year: 2016
+    :language: eng
+    :edition: 6
+    :link Amazon: https://www.amazon.com/Programming-Problem-Solving-C-Comprehensive/dp/1284076598
+
+
+.. athenaeum:book:: The C++ Standard Library from Scratch
+    :title_localized: Стандартная библиотека C++ на примерах
+    :authors: Pablo Halpern
+    :tags: C++, STL
+
+    :issue:
+    :year: 2001
+    :language: rus
+    :edition: 1
+    :series: Программирование Джесса Либерти на примерах
+    :link Amazon: https://www.amazon.com/C-Standard-Library-Scratch/dp/0789721287
+    :link Williams: http://www.williamspublishing.com/Books/fScr_CPPSTL.html
+
+
+.. athenaeum:book:: C++ How to Program
+    :title_localized: Как программировать на С++
+    :authors: Paul J. Deitel, Harvey M. Deitel
+    :tags: C++
+
+    :issue:
+    :year: 1999
+    :language: rus
+    :edition: 1
+    :link Amazon: https://www.amazon.com/How-Program-Harvey-M-Deitel/dp/0131173340
+    :link rusneb.ru: https://rusneb.ru/catalog/010003_000061_7e0c723739bf141deca4fea1337a4aa3/
+
+    :issue:
+    :year: 2008
+    :language: rus
+    :edition: 5
+    :link Amazon: https://www.amazon.com/How-Program-Harvey-Paul-Deitel/dp/0131857576
+    :link Ozon: https://www.labirint.ru/books/152906/
+
+    :issue:
+    :year: 2009
+    :language: eng
+    :edition: 7
+    :link Amazon: https://www.amazon.com/How-Program-7th-Paul-Deitel/dp/0136117260
+
+    :issue:
+    :year: 2011
+    :language: eng
+    :edition: 8
+    :link Amazon: https://www.amazon.com/How-Program-eighth-Text-Only/dp/B005GMQMLS
+
+    :issue:
+    :year: 2014
+    :language: eng
+    :edition: 9
+    :link Amazon: https://www.amazon.com/C-How-Program-9th-Paperback/dp/8120349997
+
+
+.. athenaeum:book:: The C++ Programmer's Handbook
+    :title_localized: C++ под рукой
+    :authors: Paul J. Lucas
+    :tags: C++
+
+    :issue:
+    :year: 1993
+    :language: rus
+    :edition: 1
+    :link Amazon: https://www.amazon.com/Programmers-Handbook-Paul-J-Lucas/dp/0131182331
+    :link Ozon: https://www.ozon.ru/context/detail/id/145574868/
+
+
+.. athenaeum:book:: C++
+    :subtitle: Effective Modern C++ (C++ 11,C++ 14)
+    :authors: Paul Laurence
+    :tags: C++, C++11, C++14
+
+    :issue:
+    :year: 2017
+    :language: eng
+    :edition: 1
+    :link Amazon: https://www.amazon.com/Effective-Modern-Programming-Javascript-internet/dp/1979270600
+
+
+.. athenaeum:book:: A Teen's Guide to C++
+    :authors: Peter Le
+    :tags: C++
+
+    :issue:
+    :year: 2018
+    :language: eng
+    :edition: 1
+    :series: A Teen's Guide to Programming
+    :link Amazon: https://www.amazon.com/Teens-Guide-Programming/dp/1731581300
+
+
+.. athenaeum:book:: Open Data Structures
+    :subtitle: In C++
+    :authors: Pat Morin
+    :tags: C++, Data Structures
+
+    :issue:
+    :year: 2013
+    :language: eng
+    :edition: 1
+    :link Amazon: https://www.amazon.com/gp/product/1927356385
+
+
+.. athenaeum:book:: C++11 for Programmers
+    :subtitle: Introducing the new C++ 11 Standard
+    :authors: Paul J. Deitel, Harvey M. Deitel
+    :tags: C++, C++11
+
+    :issue:
+    :year: 2013
+    :language: eng
+    :edition: 2
+    :series: Deitel Developer Series
+    :link Amazon: https://www.amazon.com/C-11-Programmers-Deitel-Developer-ebook/dp/B00BY6DQVY
+
+
+.. athenaeum:book:: C++
+    :subtitle: No Experience Required
+    :title_localized: C++
+    :subtitle_localized: Учебный курс
+    :authors: Paulo Franca
+    :tags: C++
+
+    :issue:
+    :year: 2003
+    :language: rus
+    :edition: 1
+    :link Amazon: https://www.amazon.com/C-Experience-Required-Paulo-Franca/dp/078212111X
+    :link LitPortal: http://www.litportal.kiev.ua/2007/02/03/franka_p_c_uchebnyjj_kurs.html
+
+.. athenaeum:book:: C++ Standard Library Quick Reference
+    :authors: Peter Van Weert, Marc Gregoire
+    :tags: C++, STL, Data Structures, Algorithm
+
+    :issue:
+    :year: 2016
+    :language: eng
+    :edition: 1
+    :link Amazon: https://www.amazon.com/C-Standard-Library-Quick-Reference-dp-1484218752/dp/1484218752
+

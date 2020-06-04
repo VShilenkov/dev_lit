@@ -366,11 +366,23 @@ class Author:
                     self.first_name, self.middle_name[0], self.last_name)
         return file_component
 
-    def build_node(self) -> nodes.Node:
+    def build_node(self,domain=None) -> nodes.Node:
         author_paragraph = nodes.paragraph()
-        author_paragraph += nodes.target('', '', ids=[self.id])
-        author_paragraph += nodes.inline(text=self.get_displayable_name(),
+        #author_paragraph += nodes.target('', '', ids=[self.id])
+        #athenaeum = self.env.get_domain('athenaeum')
+        index = -1
+        if not domain is None:
+            for a in domain.data['authors']:
+                index += 1
+                if a[0] == self.get_full_name():
+                    break
+
+        # FIXME
+        # find how correctly insert internal references
+        author_reference = nodes.reference(internal=True, refuri='../athenaeum-author_%s.html' % index)
+        author_reference += nodes.inline(text=self.get_displayable_name(),
                                          classes=self.classes['author'])
+        author_paragraph += author_reference
         return author_paragraph
 
 
@@ -400,14 +412,14 @@ class Book:
         self.subtitle_localized = subtitle_localized
         self.tags               = tags
 
-    def build_node_authors(self) -> nodes.Node:
+    def build_node_authors(self, domain=None) -> nodes.Node:
         authors_node = nodes.paragraph(text='Authors'
                                       , classes=self.classes['authors'])
 
         authors_bullet_list = nodes.bullet_list(bullet='-')
         for a in self.authors:
             author_list_item = nodes.list_item()
-            author_list_item += a.build_node()
+            author_list_item += a.build_node(domain=domain)
             authors_bullet_list += author_list_item
 
         authors_node += authors_bullet_list
@@ -437,7 +449,7 @@ class Book:
         title_str = re.compile(r'[ :\\/]').sub('_', self.title)
         return '{}-{}'.format(authors_str, title_str)
 
-    def build_node(self) -> nodes.Node:
+    def build_node(self, domain=None) -> nodes.Node:
         book_topic = nodes.topic(classes=['book-topic'])
         book_topic += nodes.target('', '', ids=[self.id])
         book_title = nodes.paragraph(text=self.title, classes=['book-title'])
@@ -474,7 +486,7 @@ class Book:
         book_left_bullet_list = nodes.bullet_list(bullet='*')
 
         authors_list_item = nodes.list_item()
-        authors_list_item += self.build_node_authors()
+        authors_list_item += self.build_node_authors(domain=domain)
         book_left_bullet_list += authors_list_item
 
         book_right_bullet_list = nodes.bullet_list(bullet='*')
@@ -558,7 +570,7 @@ class BookDirective(SphinxDirective):
         athenaeum = self.env.get_domain('athenaeum')
         athenaeum.add_book(book)
 
-        book_node = book.build_node()
+        book_node = book.build_node(domain=athenaeum)
 
         return [book_node]
 
