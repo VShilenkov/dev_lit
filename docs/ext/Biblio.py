@@ -161,7 +161,7 @@ class Issue:
             'part_name':     re.compile(r'^\:part_name\:\s+(.*?)$'),
             'fascicle':      re.compile(r'\:fascicle\:\s(\w+)'),
             'fascicle_name': re.compile(r'^\:fascicle_name\:\s+(.*?)$'),
-            'links':         re.compile(r'^\:link\s+(\w+)\:\s+(.*)$')
+            'links':         re.compile(r'^\:link\s+([\w\.\-]+?)\:\s+(.*)$')
         }
 
         for line in raw_source:
@@ -573,7 +573,7 @@ class AuthorIndex(Index):
         authors = self.domain.data['authors']
 
         for name, dispname, typ, docname, anchor, prio, a_id  in authors:
-            content[dispname[0].lower()].append(
+            content[dispname[0].upper()].append(
                 (dispname, 0, docname, anchor, '', '', typ))
 
         for k in content:
@@ -597,7 +597,7 @@ class BookAllIndex(Index):
             for a in authors:
                 desc_list.append(a.last_name)
             desc = ', '.join(desc_list)
-            content[dispname[0].lower()].append(
+            content[dispname[0].upper()].append(
                 (dispname, 0, docname, anchor, desc, '', typ))
 
         for k in content:
@@ -617,7 +617,7 @@ class SeriesIndex(Index):
         domain_series = self.domain.data['series']
 
         for name, dispname, typ, docname in domain_series:
-            content[dispname[0].lower()].append(
+            content[dispname[0].upper()].append(
                 (dispname, 0, docname, '', '', '', typ))
 
         for k in content:
@@ -638,7 +638,7 @@ class TagsIndex(Index):
         domain_tags = self.domain.data['tags']
 
         for name, dispname, typ, docname in domain_tags:
-            content[dispname[0].lower()].append(
+            content[dispname[0].upper()].append(
                 (dispname, 0, docname, '', '', '', typ))
 
         for k in content:
@@ -666,7 +666,7 @@ def author_book_list_generator(self, docnames=None):
             for a in authors:
                 desc_list.append(a.last_name)
             desc = ', '.join(desc_list)
-            content[dispname[0].lower()].append(
+            content[dispname[0].upper()].append(
                 (dispname, 0, docname, anchor, desc, '', typ))
 
     for k in content:
@@ -686,7 +686,7 @@ def series_book_generator(self, docnames=None):
             for a in authors:
                 desc_list.append(a.last_name)
             desc = ', '.join(desc_list)
-            content[dispname[0].lower()].append(
+            content[dispname[0].upper()].append(
                 (dispname, 0, docname, anchor, desc, '', typ))
 
     for k in content:
@@ -707,7 +707,7 @@ def tags_book_generator(self, docnames=None):
             for a in authors:
                 desc_list.append(a.last_name)
             desc = ', '.join(desc_list)
-            content[dispname[0].lower()].append(
+            content[dispname[0].upper()].append(
                 (dispname, 0, docname, anchor, desc, '', typ))
 
     for k in content:

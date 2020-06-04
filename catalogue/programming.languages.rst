@@ -11,6 +11,7 @@ Programming Languages
     Fortran Language <fortran.rst>
     Java Language <java.rst>
     Python Language <python.rst>
+    Ruby Language <ruby.rst>
 
 
 

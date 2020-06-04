@@ -4,7 +4,7 @@ Algorithms
 
 .. athenaeum:book:: Algorithmic Problem Solving with Python
     :authors: John B. Schneider, Shira Lynn Broschat, Jess Dahmen
-    :tags: Algorithms, Python
+    :tags: Algorithm, Python
 
     :issue:
     :year: 2019
@@ -14,7 +14,7 @@ Algorithms
 
 .. athenaeum:book:: Encyclopedia of Algorithms
     :authors: Ming-Yang Kao
-    :tags: Algorithms
+    :tags: Algorithm
 
     :issue:
     :year: 2008
