@@ -152,8 +152,7 @@ class Issue:
             prefix_node += nodes.inline(text=', Part {}'.format(self.part)
                                        , classes=self.classes['part'])
 
-        prefix_node += nodes.inline(text=":"
-                                   , classes=self.classes['punctuation'])
+        prefix_node += nodes.inline(text=":", classes=self.classes['punctuation'])
 
         return prefix_node
 
@@ -170,8 +169,8 @@ class Issue:
         return issue_title
 
     def build_issue_title_node(self) -> nodes.Node:
-        issue_title_node = nodes.inline(
-            text=self.build_issue_title(), classes=self.classes['title'])
+        issue_title_node = nodes.inline(text=self.build_issue_title())
+        issue_title_node['classes'] = self.classes['title']
 
         issue_title_node += nodes.inline(text=" - ",
                                          classes=self.classes['punctuation'])
@@ -206,13 +205,37 @@ class Issue:
         return nodes.inline(text=' ({})'.format(language_string)
                            , classes=self.classes['language'])
 
+    def build_series_node(self, domain: 'Athenaeum' = None) -> List[nodes.Node]:
+        if self.series == '':
+            return []
+
+        series_unique_id = -1 \
+            if domain is None else domain.get_series_unique_id(self.series)
+        domain_name = 'problematic' if domain is None else domain.name
+        current_file_name = 'problematic' \
+            if domain is None else domain.env.docname
+
+        series_index_file_name = '{}-{}_{}'.format( domain_name
+                                                    , 'series'
+                                                    , series_unique_id)
+
+        issue_reference = nodes.reference(internal=True)
+        issue_reference['refuri'] = domain.env.app.builder.get_relative_uri( 
+            current_file_name, series_index_file_name)
+        issue_reference += nodes.inline( text=self.series
+                                       , classes=self.classes['series'])
+        
+        return [ nodes.inline( text=' | ', classes=self.classes['punctuation'])
+               , issue_reference]
+
+
     def build_link_node(self, link) -> nodes.Node:
         reference = nodes.reference(
             '', '', internal=False, refuri=self.links[link])
         reference += nodes.strong(link, link)
         return reference
 
-    def build_node(self) -> nodes.Node:
+    def build_node(self, domain: 'Athenaeum' = None) -> nodes.Node:
         issue_node = nodes.paragraph()
 
         issue_node += nodes.strong(text=self.year, classes=self.classes['year'])
@@ -220,10 +243,9 @@ class Issue:
         issue_node += self.build_issue_title_node()
         issue_node += nodes.inline(text='%s edition' % (int_to_roman(int(self.edition))))
         issue_node += self.build_language_node()
-        
-        if not self.series == '':
-            issue_node += nodes.inline(text=' | ', classes=self.classes['punctuation'])
-            issue_node += nodes.inline(text=self.series, classes=self.classes['series'])
+
+        for n in self.build_series_node(domain):
+            issue_node += n
 
         info_bullet_list = nodes.bullet_list(bullet='*')
 
@@ -239,11 +261,12 @@ class Issue:
             info_bullet_list += link_item
 
         file_name_item = nodes.list_item()
-        file_name_item += nodes.paragraph(
-            text=self.build_file_component(), classes=self.classes['filename'])
+        file_name_item += nodes.paragraph( text=self.build_file_component()
+                                         , classes=self.classes['filename'])
         info_bullet_list += file_name_item
 
         issue_node += info_bullet_list
+
         return issue_node
 
 class Author:
@@ -379,7 +402,7 @@ class Book:
         issues_bullet_list = nodes.bullet_list(bullet='-')
         for i in sorted(self.issues, key=lambda issue: issue.year):
             issue_list_item = nodes.list_item()
-            issue_list_item += i.build_node()
+            issue_list_item += i.build_node(domain=self.domain)
             issues_bullet_list += issue_list_item
 
         issues_node += issues_bullet_list
@@ -581,18 +604,16 @@ class SeriesIndex(Index):
     def generate(self, docnames=None):
         content = defaultdict(list)
 
-        domain_series = self.domain.data['series']
+        for _, display_name, docname, _ in self.domain.data['series']:
+            book_counter = 0
+            for book in self.domain.data['books']:
+                if display_name in book[7]:
+                    book_counter += 1
 
-        for name, dispname, typ, docname in domain_series:
-            content[dispname[0].upper()].append(
-                (dispname, 0, docname, '', '', '', typ))
+            content[display_name[0].upper()].append(
+                (display_name, 0, docname, '', book_counter, '', 'Series'))
 
-        for k in content:
-            content[k].sort()
-
-        content = sorted(content.items())
-
-        return content, True
+        return sort_index_content(content), True
 
 class TagsIndex(Index):
     name = 'tags'
@@ -635,23 +656,18 @@ def author_book_generator(self, docnames=None)-> Tuple[List[Tuple[str, List[Inde
 
 def series_book_generator(self, docnames=None):
     content = defaultdict(list)
-    books = self.domain.data['books']
 
-    for name, dispname, typ, docname, anchor, prio, authors, series, _ in books:
+    for name, dispname, typ, docname, anchor, prio, authors, series, tags in self.domain.data['books']:
         if self.magic_series in series:
-            desc_list = []
-            for a in authors:
-                desc_list.append(a.last_name)
-            desc = ', '.join(desc_list)
-            content[dispname[0].upper()].append(
-                (dispname, 0, docname, anchor, desc, '', typ))
+            content[dispname[0].upper()].append(( dispname
+                                                , 0
+                                                , docname
+                                                , anchor
+                                                , build_book_description(authors, tags)
+                                                , ''
+                                                , typ))
 
-    for k in content:
-        content[k].sort()
-
-    content = sorted(content.items())
-
-    return content, True
+    return sort_index_content(content), True
 
 def tags_book_generator(self, docnames=None):
     content = defaultdict(list)
@@ -733,26 +749,42 @@ class Athenaeum(Domain):
                                    , '{}-{}'.format(self.name, index_name)  # docname
                                    , author_id))                            # author's unique id
 
+    def add_series_record(self, record: Tuple[str, str, str, int]) -> None:
+        self.data['series'].append(record)
+
+    def get_series_record(self, series: str) -> Tuple[str, str, str, int]:
+        return next((x for x in self.data['series'] if x[1] == series), None)
+
+    def create_series_unique_id(self) -> int:
+        return len(self.data['series'])
+
+    def get_series_unique_id(self, series: str) -> int:
+        record = self.get_series_record(series)
+        if record is not None:
+            return record[3]
+        else:
+            return self.create_series_unique_id()
+
     def add_series(self, series:str) -> None:
-        name = series.replace(' ', '_')
+        record = self.get_series_record(series)
 
-        exists = next((x for x in self.data['series'] if x[1] == series), False)
-
-        if not exists:
-
-            s_id = len(self.data['series'])
-
-            series_generator = type('series_%s_generator' % s_id
+        if record is None:
+            series_id = self.create_series_unique_id()
+            index_name = '{}_{}'.format('series', series_id)
+            series_generator = type('series_index_generator_%s' % series_id
                                     , (Index, )
-                                    , {'magic_series': series
-                                        , 'name': 'series_%s' % s_id
-                                        , 'localname': series
-                                        , 'shortname': series
-                                        , 'generate': series_book_generator
+                                    , {'magic_series':  series
+                                        , 'name':       index_name
+                                        , 'localname':  series
+                                        , 'shortname':  series
+                                        , 'generate':   series_book_generator
                                         ,})
 
             self.indices.append(series_generator)
-            self.data['series'].append((name, series, 'Series', 'athenaeum-series_%s' % s_id))
+            self.add_series_record(( series.replace(' ', '_')               # name
+                                   , series                                 # display name
+                                   , '{}-{}'.format(self.name, index_name)  # docname
+                                   , series_id))                            # series unique id
 
     def add_tag(self, tag:str) -> None:
         if tag == '':
@@ -800,10 +832,7 @@ class Athenaeum(Domain):
                        x[0] == name), False)
 
         if not exists:
-            series = []
-            for i in book.issues:
-                if i.series != '':
-                    series.append(i.series)
+            series = [i.series for i in book.issues if i.series != '']
 
             self.data['books'].append(
                 (name, book.title, 'Book', self.env.docname, book.id, 1, book.authors, series, book.tags))
