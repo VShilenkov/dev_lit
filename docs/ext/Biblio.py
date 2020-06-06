@@ -1,4 +1,5 @@
 import re
+import string
 
 from collections    import defaultdict
 from typing         import List, Dict, Any, Tuple
@@ -8,68 +9,8 @@ from docutils.parsers.rst   import Directive, directives
 
 from sphinx                 import addnodes
 from sphinx.directives      import ObjectDescription
-from sphinx.domains         import Domain, Index
+from sphinx.domains         import Domain, Index, IndexEntry
 from sphinx.util.docutils   import SphinxDirective
-
-
-class BiblioItem(Directive):
-
-    def run(self) -> List[nodes.Node]:
-        # n = nodes.paragraph(text="babla")
-        # node_list = [n]
-        # p = nodes.paragraph(text="pipin")
-        # node_list.append(p)
-        # pp = nodes.literal(text="literal")
-
-        # node_list.append(pp)
-        # pl = nodes.literal(text="literal2")
-        # node_list.append(pl)
-        # item = nodes.list_item()
-        # item += nodes.Text("pipsku")
-        # reference = nodes.reference('', '', internal=False, refuri="http://example.com", classes=['test'])
-        # reference += nodes.strong("exmpls", "exm")
-        # node_list.append(reference)
-        # node_list.append(item)
-
-        content = []
-
-        para = nodes.paragraph()
-        description = (
-                '(The original entry is located in %s, line %d and can be found ' %
-                ("filename", 11))
-        para += nodes.Text(description, description)
-
-        # Create a reference
-        newnode = nodes.reference('', '', internal=False, refuri="http://example.com", classes=['test'])
-        innernode = nodes.emphasis('here', 'here')
-        newnode.append(innernode)
-        para += newnode
-        para += nodes.Text('.)', '.)')
-
-        content.append(para)
-
-        return content
-
-
-class MyDirective(Directive):
-    """
-        Adding bullet list and references
-    """
-
-    def run(self):
-        my_nodes = nodes.bullet_list(bullet='*')
-        for text, ref in [('Text Item 1', 'https://link/to/somewhere'),
-                          ('Text Item 2', 'https://link/to/somewhere_else')]:
-            item = nodes.list_item()
-            para = nodes.paragraph(text=text)
-            refnode = nodes.reference('', '', internal=False, refuri=ref)
-            innernode = nodes.emphasis("link", "link")
-            refnode.append(innernode)
-            para += refnode
-            item += para
-            # Magic happens
-            my_nodes.append(item)
-        return [my_nodes]
 
 
 def int_to_roman(input):
@@ -312,79 +253,84 @@ class Author:
     }
 
     def __init__(self
-                , id:          int
                 , first_name:  str
                 , last_name:   str
                 , middle_name: str = ''):
-        self.id = 'author-%s' % id      # str
-        self.first_name = first_name    # str
-        self.last_name = last_name      # str
+        self.first_name  = first_name   # str
+        self.last_name   = last_name    # str
         self.middle_name = middle_name  # str
+        self.is_latin = first_name[0].lower() in string.ascii_lowercase
 
     @classmethod
-    def init_from_raw(cls, id: int, raw: str):
+    def init_from_raw(cls, raw: str):
         name_parts = raw.split()
         if len(name_parts) == 2:
-            return cls(id, name_parts[0], name_parts[1])
+            return cls(name_parts[0], name_parts[1])
         elif len(name_parts) == 3:
-            return cls(id, name_parts[0], name_parts[2], name_parts[1])
+            return cls(name_parts[0], name_parts[2], name_parts[1])
         else:
             raise ParseError('Author: cannot parse raw string')
 
     def get_full_name(self) -> str:
-        result = 'author-' + self.first_name
-        if not self.middle_name == '':
-            result += self.middle_name
-        return result + self.last_name
+        return '{}-{}{}{}'.format( 'author'
+                                 , self.first_name
+                                 , self.middle_name
+                                 , self.last_name)
 
     def get_displayable_name(self) -> str:
-        displayable_name = self.first_name
-        if self.middle_name == '':
+        displayable_name = ''
+
+        if self.is_latin:
+            displayable_name = self.first_name
+            if not self.middle_name == '':
+                displayable_name += ' {}'.format(self.middle_name)
             displayable_name += ' {}'.format(self.last_name)
         else:
-            displayable_name += ' {} {}'.format(self.middle_name, self.last_name)
+            displayable_name = '{} {}'.format(self.last_name, self.first_name)
+            if not self.middle_name == '':
+                displayable_name += ' {}'.format(self.middle_name)
 
         return displayable_name
 
     def build_file_component(self) -> str:
         file_component = ''
 
-        rus_match = re.compile(r'[А-Я]').match(self.first_name.upper())
-        if rus_match:
-            if self.middle_name == '':
-                file_component = '{}.{}'.format(
-                    self.last_name, self.first_name[0])
-            else:
-                file_component = '{}.{}.{}.'.format(
-                    self.last_name, self.first_name[0], self.middle_name[0])
+        if self.is_latin:
+            file_component = self.first_name
+            if not self.middle_name == '':
+                file_component += '.{}'.format(self.middle_name[0])
+            file_component += '.{}'.format(self.last_name)
         else:
-            if self.middle_name == '':
-                file_component = '{}.{}'.format(
-                    self.first_name, self.last_name)
-            else:
-                file_component = '{}.{}.{}'.format(
-                    self.first_name, self.middle_name[0], self.last_name)
+            file_component = '{}.{}'.format(self.last_name, self.first_name[0])
+            if not self.middle_name == '':
+                file_component += '.{}.'.format(self.middle_name[0])
         return file_component
 
-    def build_node(self,domain=None) -> nodes.Node:
+    def build_node(self, domain: 'Athenaeum' = None) -> nodes.Node:
+        
+        author_unique_id = -1 \
+            if domain is None else domain.get_author_unique_id(self)
+        domain_name = 'problematic' \
+            if domain is None else domain.name
+        current_file_name = 'problematic' \
+            if domain is None else domain.env.docname
+        
+        author_index_file_name = '{}-{}_{}'.format( domain_name
+                                                  , 'author'
+                                                  , author_unique_id)
+
+        author_reference = nodes.reference(internal=True)
+        author_reference['refuri'] = \
+            domain.env.app.builder.get_relative_uri( current_file_name
+                                                   , author_index_file_name)
+        author_title = nodes.inline(text=self.get_displayable_name())
+        author_title['classes']=self.classes['author']
+
         author_paragraph = nodes.paragraph()
-        #author_paragraph += nodes.target('', '', ids=[self.id])
-        #athenaeum = self.env.get_domain('athenaeum')
-        index = -1
-        if not domain is None:
-            for a in domain.data['authors']:
-                index += 1
-                if a[0] == self.get_full_name():
-                    break
-
-        # FIXME
-        # find how correctly insert internal references
-        author_reference = nodes.reference(internal=True, refuri='../athenaeum-author_%s.html' % index)
-        author_reference += nodes.inline(text=self.get_displayable_name(),
-                                         classes=self.classes['author'])
+        author_reference += author_title
         author_paragraph += author_reference
-        return author_paragraph
 
+        return author_paragraph
 
 
 class Book:
@@ -402,7 +348,8 @@ class Book:
                 , subtitle:           str = ''
                 , title_localized:    str = ''
                 , subtitle_localized: str = ''
-                , tags:               List[str] = []):
+                , tags:               List[str] = []
+                , domain:             'Domain' = None):
         self.title              = title
         self.authors            = authors
         self.id                 = 'book-%s' % id
@@ -411,15 +358,16 @@ class Book:
         self.title_localized    = title_localized
         self.subtitle_localized = subtitle_localized
         self.tags               = tags
+        self.domain             = domain
 
-    def build_node_authors(self, domain=None) -> nodes.Node:
+    def build_node_authors(self) -> nodes.Node:
         authors_node = nodes.paragraph(text='Authors'
                                       , classes=self.classes['authors'])
 
         authors_bullet_list = nodes.bullet_list(bullet='-')
         for a in self.authors:
             author_list_item = nodes.list_item()
-            author_list_item += a.build_node(domain=domain)
+            author_list_item += a.build_node(domain=self.domain)
             authors_bullet_list += author_list_item
 
         authors_node += authors_bullet_list
@@ -449,7 +397,7 @@ class Book:
         title_str = re.compile(r'[ :\\/]').sub('_', self.title)
         return '{}-{}'.format(authors_str, title_str)
 
-    def build_node(self, domain=None) -> nodes.Node:
+    def build_node(self) -> nodes.Node:
         book_topic = nodes.topic(classes=['book-topic'])
         book_topic += nodes.target('', '', ids=[self.id])
         book_title = nodes.paragraph(text=self.title, classes=['book-title'])
@@ -486,7 +434,7 @@ class Book:
         book_left_bullet_list = nodes.bullet_list(bullet='*')
 
         authors_list_item = nodes.list_item()
-        authors_list_item += self.build_node_authors(domain=domain)
+        authors_list_item += self.build_node_authors()
         book_left_bullet_list += authors_list_item
 
         book_right_bullet_list = nodes.bullet_list(bullet='*')
@@ -519,8 +467,7 @@ class BookDirective(SphinxDirective):
     def parse_authors(self) -> List["Author"]:
         author_list = []
         for author_raw in self.options.get('authors').split(','):
-            target_id = self.env.new_serialno('author')
-            author = Author.init_from_raw(target_id, author_raw)
+            author = Author.init_from_raw(author_raw)
             author_list.append(author)
 
         return author_list
@@ -557,42 +504,50 @@ class BookDirective(SphinxDirective):
         return issue_list
 
     def run(self) -> List[nodes.Node]:
-        subtitle = self.options.get('subtitle', '')
-        title_localized = self.options.get('title_localized', '')
-        subtitle_localized = self.options.get('subtitle_localized', '')
-        tags = [x.strip() for x in self.options.get('tags', '').split(',')]
-
-        book = Book(self.arguments[0], self.parse_authors(), self.env.new_serialno('book'),
-            self.parse_issues(), 
-            subtitle=subtitle, title_localized=title_localized, 
-            subtitle_localized=subtitle_localized, tags=tags)
-
         athenaeum = self.env.get_domain('athenaeum')
+
+        book = Book( self.arguments[0]
+                   , self.parse_authors()
+                   , self.env.new_serialno('book')
+                   , self.parse_issues()
+                   , subtitle=self.options.get('subtitle', '')
+                   , title_localized=self.options.get('title_localized', '')
+                   , subtitle_localized=self.options.get('subtitle_localized', '')
+                   , tags=[x.strip() for x in self.options.get('tags', '').split(',')]
+                   , domain=athenaeum)
+
         athenaeum.add_book(book)
 
-        book_node = book.build_node(domain=athenaeum)
+        return [book.build_node()]
 
-        return [book_node]
+def sort_index_content(content: List[Tuple[str, List[IndexEntry]]]) -> List[Tuple[str, List[IndexEntry]]]:
+    for index_key in content:
+        content[index_key].sort()
+    return sorted(content.items())
+
+def build_book_description(authors: List['Author'], tags: List[str]) -> str:
+    return ', '.join([a.last_name for a in authors]) + ' / ' + tags[0]
 
 class AuthorIndex(Index):
     name = 'author'
     localname = 'Author Index'
     shortname = 'Authors'
 
-    def generate(self, docnames=None):
+    def generate(self, docnames=None) -> Tuple[List[Tuple[str, List[IndexEntry]]], bool]:
         content = defaultdict(list)
 
-        authors = self.domain.data['authors']
+        for name, displayname, docname, _  in self.domain.data['authors']:
+            book_counter = 0
+            for book in self.domain.data['books']:
+                for book_author in book[6]:
+                    if name == book_author.get_full_name():
+                        book_counter += 1
+            
+            content[displayname[0].upper()].append(
+                (displayname, 0, docname, '', book_counter, '', 'Author'))
+                 #name, sub-type, docname, anchor, extra, qualifier, description
 
-        for name, dispname, typ, docname, anchor, prio, a_id  in authors:
-            content[dispname[0].upper()].append(
-                (dispname, 0, docname, anchor, '', '', typ))
-
-        for k in content:
-            content[k].sort()
-        content = sorted(content.items())
-
-        return content, True
+        return sort_index_content(content), True
 
 class BookAllIndex(Index):
     name = 'all_books'
@@ -660,33 +615,23 @@ class TagsIndex(Index):
 
         return content, True
 
-
-def author_book_list_generator(self, docnames=None):
+def author_book_generator(self, docnames=None)-> Tuple[List[Tuple[str, List[IndexEntry]]], bool]:
     content = defaultdict(list)
 
-    books = self.domain.data['books']
-
-    for name, dispname, typ, docname, anchor, prio, authors, series, _ in books:
-        found = False
-        for auth in authors:
-            if auth.last_name == self.magic_author.last_name \
-                and auth.first_name == self.magic_author.first_name:
-                found = True
+    for _, dispname, typ, docname, anchor, _, authors, _, tags in self.domain.data['books']:
+        found = next((a for a in authors \
+            if a.get_full_name() == self.magic_author.get_full_name()), False)
 
         if found:
-            desc_list = []
-            for a in authors:
-                desc_list.append(a.last_name)
-            desc = ', '.join(desc_list)
-            content[dispname[0].upper()].append(
-                (dispname, 0, docname, anchor, desc, '', typ))
+            content[dispname[0].upper()].append(( dispname
+                                                , 0
+                                                , docname
+                                                , anchor
+                                                , build_book_description(authors, tags)
+                                                , ''
+                                                , typ))
 
-    for k in content:
-        content[k].sort()
-
-    content = sorted(content.items())
-
-    return content, True
+    return sort_index_content(content), True
 
 def series_book_generator(self, docnames=None):
     content = defaultdict(list)
@@ -752,30 +697,41 @@ class Athenaeum(Domain):
         book_title = node.arguments[0].strip().replace(' ', '')
         return '{}-{}'.format(self.name, book_title)
 
+    def add_author_record(self, record: Tuple[str, str, str, int]) -> None:
+        self.data['authors'].append(record)
+
+    def get_author_record(self, author: 'Author') -> Tuple[str, str, str, int]:
+        return next((x for x in self.data['authors'] if x[0] == author.get_full_name()), None)
+
+    def create_author_unique_id(self) -> int:
+        return len(self.data['authors'])
+
+    def get_author_unique_id(self, author: "Author") -> int:
+        record = self.get_author_record(author)
+        if record is not None:
+            return record[3]
+        else:
+            return self.create_author_unique_id()
+
     def add_author(self, author: "Author") -> None:
-        name = author.get_full_name()
-        anchor = author.id # must be empty
-        # docname should be replaced with generated name
+        record = self.get_author_record(author)
 
-        exists = next((x for x in self.data['authors'] if
-                       x[0] == name), False)
-
-        if not exists:
-            a_id = len(self.data['authors'])
-
-            author_generator = type('authors_%s_generator' % a_id
-                        , (Index, )
-                        , {'magic_author': author
-                        , 'name': 'author_%s' % a_id
-                        , 'localname': '{} {}'.format(author.last_name, author.first_name)
-                        , 'shortname': author.last_name
-                        , 'generate': author_book_list_generator
-                        ,})
-
+        if record is None:
+            author_id = self.create_author_unique_id()
+            index_name = '{}_{}'.format('author', author_id)
+            author_generator = type('author_index_generator_%s' % author_id
+                                   , (Index, )
+                                   , { 'magic_author': author
+                                     , 'name':         index_name
+                                     , 'localname':    author.get_displayable_name()
+                                     , 'shortname':    author.last_name
+                                     , 'generate':     author_book_generator
+                                   ,})
             self.indices.append(author_generator)
-
-            self.data['authors'].append(
-                (name, author.get_displayable_name(), 'Author', 'athenaeum-author_%s' % a_id, anchor, 0, a_id))
+            self.add_author_record(( author.get_full_name()                 # name
+                                   , author.get_displayable_name()          # display_name
+                                   , '{}-{}'.format(self.name, index_name)  # docname
+                                   , author_id))                            # author's unique id
 
     def add_series(self, series:str) -> None:
         name = series.replace(' ', '_')
@@ -861,3 +817,5 @@ def setup(app: "Sphinx") -> Dict[str, Any]:
         'parallel_read_safe': True,
         'parallel_write_safe': True,
     }
+
+# TODO book display name for cases `The` and `A`
