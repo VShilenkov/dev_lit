@@ -228,7 +228,6 @@ class Issue:
         return [ nodes.inline( text=' | ', classes=self.classes['punctuation'])
                , issue_reference]
 
-
     def build_link_node(self, link) -> nodes.Node:
         reference = nodes.reference(
             '', '', internal=False, refuri=self.links[link])
@@ -383,6 +382,18 @@ class Book:
         self.tags               = tags
         self.domain             = domain
 
+    def transform_title(self) -> str:
+        re_the = re.compile(r'^(The)\s(.*)$').match(self.title)
+        if re_the:
+            return '{},{}'.format(re_the.group(2),re_the.group(1))
+        
+        re_a = re.compile(r'^(A)\s(.*)$').match(self.title)
+        if re_a:
+            return '{},{}'.format(re_a.group(2),re_a.group(1))
+
+        return self.title
+
+
     def build_node_authors(self) -> nodes.Node:
         authors_node = nodes.paragraph(text='Authors'
                                       , classes=self.classes['authors'])
@@ -447,7 +458,22 @@ class Book:
                 first_space = False
             if not first_space:
                 book_tags += nodes.inline(text=' ', classes=['book-punctuation'])
-            book_tags += nodes.inline(text=t.strip(), classes=['book-tag'])
+
+            tag_unique_id = -1 \
+                if self.domain is None else self.domain.get_tag_unique_id(t.strip())
+            domain_name = 'problematic' if self.domain is None else self.domain.name
+            current_file_name = 'problematic' \
+                if self.domain is None else self.domain.env.docname
+
+            tag_index_file_name = '{}-{}_{}'.format( domain_name
+                                                   , 'tag'
+                                                   , tag_unique_id)
+
+            tag_reference = nodes.reference(internal=True)
+            tag_reference['refuri'] = self.domain.env.app.builder.get_relative_uri( 
+                                        current_file_name, tag_index_file_name)
+            tag_reference += nodes.inline(text=t.strip(), classes=['book-tag'])
+            book_tags += tag_reference
         
         book_topic += book_tags
 
@@ -562,7 +588,7 @@ class AuthorIndex(Index):
         for name, displayname, docname, _  in self.domain.data['authors']:
             book_counter = 0
             for book in self.domain.data['books']:
-                for book_author in book[6]:
+                for book_author in book[4]:
                     if name == book_author.get_full_name():
                         book_counter += 1
             
@@ -572,7 +598,7 @@ class AuthorIndex(Index):
 
         return sort_index_content(content), True
 
-class BookAllIndex(Index):
+class BookIndex(Index):
     name = 'all_books'
     localname = 'Book Index'
     shortname = 'Books'
@@ -580,21 +606,16 @@ class BookAllIndex(Index):
     def generate(self, docnames=None):
         content = defaultdict(list)
 
-        books = self.domain.data['books']
+        for name, display_name, docname, anchor, authors, series, tags in self.domain.data['books']:
+            content[display_name[0].upper()].append(( display_name
+                                                , 0
+                                                , docname
+                                                , anchor
+                                                , build_book_description(authors, tags)
+                                                , ''
+                                                , 'Book'))
 
-        for name, dispname, typ, docname, anchor, prio, authors, series, _ in books:
-            desc_list = []
-            for a in authors:
-                desc_list.append(a.last_name)
-            desc = ', '.join(desc_list)
-            content[dispname[0].upper()].append(
-                (dispname, 0, docname, anchor, desc, '', typ))
-
-        for k in content:
-            content[k].sort()
-        content = sorted(content.items())
-
-        return content, True
+        return sort_index_content(content), True
 
 class SeriesIndex(Index):
     name = 'series'
@@ -607,7 +628,7 @@ class SeriesIndex(Index):
         for _, display_name, docname, _ in self.domain.data['series']:
             book_counter = 0
             for book in self.domain.data['books']:
-                if display_name in book[7]:
+                if display_name in book[5]:
                     book_counter += 1
 
             content[display_name[0].upper()].append(
@@ -623,23 +644,20 @@ class TagsIndex(Index):
     def generate(self, docnames=None):
         content = defaultdict(list)
 
-        domain_tags = self.domain.data['tags']
+        for name, display_name, docname, _ in self.domain.data['tags']:
+            book_counter = 0
+            for book in self.domain.data['books']:
+                if display_name in book[6]:
+                    book_counter += 1
+            content[display_name[0].upper()].append(
+                (display_name, 0, docname, '', book_counter, '', 'Tag'))
 
-        for name, dispname, typ, docname in domain_tags:
-            content[dispname[0].upper()].append(
-                (dispname, 0, docname, '', '', '', typ))
-
-        for k in content:
-            content[k].sort()
-
-        content = sorted(content.items())
-
-        return content, True
+        return sort_index_content(content), True
 
 def author_book_generator(self, docnames=None)-> Tuple[List[Tuple[str, List[IndexEntry]]], bool]:
     content = defaultdict(list)
 
-    for _, dispname, typ, docname, anchor, _, authors, _, tags in self.domain.data['books']:
+    for _, dispname, docname, anchor, authors, _, tags in self.domain.data['books']:
         found = next((a for a in authors \
             if a.get_full_name() == self.magic_author.get_full_name()), False)
 
@@ -650,14 +668,14 @@ def author_book_generator(self, docnames=None)-> Tuple[List[Tuple[str, List[Inde
                                                 , anchor
                                                 , build_book_description(authors, tags)
                                                 , ''
-                                                , typ))
+                                                , 'Book'))
 
     return sort_index_content(content), True
 
-def series_book_generator(self, docnames=None):
+def series_book_generator(self, docnames=None)-> Tuple[List[Tuple[str, List[IndexEntry]]], bool]:
     content = defaultdict(list)
 
-    for name, dispname, typ, docname, anchor, prio, authors, series, tags in self.domain.data['books']:
+    for _, dispname, docname, anchor, authors, series, tags in self.domain.data['books']:
         if self.magic_series in series:
             content[dispname[0].upper()].append(( dispname
                                                 , 0
@@ -665,29 +683,25 @@ def series_book_generator(self, docnames=None):
                                                 , anchor
                                                 , build_book_description(authors, tags)
                                                 , ''
-                                                , typ))
+                                                , 'Book'))
 
     return sort_index_content(content), True
 
-def tags_book_generator(self, docnames=None):
+def tags_book_generator(self, docnames=None)-> Tuple[List[Tuple[str, List[IndexEntry]]], bool]:
     content = defaultdict(list)
-    books = self.domain.data['books']
 
-    for name, dispname, typ, docname, anchor, prio, authors, series, tags in books:
-        
+    for _, display_name, docname, anchor, authors, _, tags in self.domain.data['books']:
+
         if self.magic_tag in tags:
-            desc_list = []
-            for a in authors:
-                desc_list.append(a.last_name)
-            desc = ', '.join(desc_list)
-            content[dispname[0].upper()].append(
-                (dispname, 0, docname, anchor, desc, '', typ))
+            content[display_name[0].upper()].append(( display_name
+                                                    , 0
+                                                    , docname
+                                                    , anchor
+                                                    , build_book_description(authors, tags)
+                                                    , ''
+                                                    , 'Book'))
 
-    for k in content:
-        content[k].sort()
-    content = sorted(content.items())
-
-    return content, True
+    return sort_index_content(content), True
 
 class Athenaeum(Domain):
     name = 'athenaeum'
@@ -698,7 +712,7 @@ class Athenaeum(Domain):
     }
     indices = [
         AuthorIndex,
-        BookAllIndex,
+        BookIndex,
         SeriesIndex,
         TagsIndex
     ]
@@ -786,29 +800,46 @@ class Athenaeum(Domain):
                                    , '{}-{}'.format(self.name, index_name)  # docname
                                    , series_id))                            # series unique id
 
+    def add_tag_record(self, record: Tuple[str,str,str,int]) -> None:
+        self.data['tags'].append(record)
+
+    def get_tag_record(self, tag: str) -> Tuple[str,str,str,int]:
+        return next((x for x in self.data['tags'] if x[1] == tag), None)
+
+    def create_tag_unique_id(self) -> int:
+        return len(self.data['tags'])
+
+    def get_tag_unique_id(self, tag:str) -> int:
+        record = self.get_tag_record(tag)
+        if record is not None:
+            return record[3]
+        else:
+            return self.create_tag_unique_id()
+
     def add_tag(self, tag:str) -> None:
         if tag == '':
             return
 
-        name = tag.replace(' ', '_')
+        record = self.get_tag_record(tag)
 
-        exists = next((x for x in self.data['tags'] if x[1] == tag), False)
+        if record is None:
+            tag_id = self.create_tag_unique_id()
+            index_name = '{}_{}'.format('tag', tag_id)
 
-        if not exists:
-            t_id = len(self.data['tags'])
-
-            tags_generator = type('tags_%s_generator' % t_id
+            tags_generator = type('tags_index_generator_%s' % tag_id
                                     , (Index, )
                                     , {'magic_tag': tag
-                                        , 'name': 'tag_%s' % t_id
+                                        , 'name': index_name
                                         , 'localname': tag
                                         , 'shortname': tag
                                         , 'generate': tags_book_generator
                                         ,})
 
             self.indices.append(tags_generator)
-            self.data['tags'].append(
-                (name, tag, 'Tag', 'athenaeum-tag_%s' % t_id))
+            self.add_tag_record(( tag.replace(' ', '_')
+                                , tag
+                                , '{}-{}'.format(self.name, index_name)  # docname
+                                , tag_id))
 
     def add_book(self, book: "Book") -> None:
         for a in book.authors:
@@ -821,21 +852,21 @@ class Athenaeum(Domain):
         for t in book.tags:
             self.add_tag(t)
         
-        authors_last_names = []
-        for a in book.authors:
-            authors_last_names.append(a.last_name)
-        
-        authors_str = '.'.join(authors_last_names)
+        authors_str = '.'.join([a.last_name for a in book.authors])
         name = '{}.{}.{}'.format('book', book.title, authors_str)
 
-        exists = next((x for x in self.data['books'] if
-                       x[0] == name), False)
+        exists = next((x for x in self.data['books'] if x[0] == name), False)
 
         if not exists:
             series = [i.series for i in book.issues if i.series != '']
 
-            self.data['books'].append(
-                (name, book.title, 'Book', self.env.docname, book.id, 1, book.authors, series, book.tags))
+            self.data['books'].append(( name
+                                      , book.transform_title()
+                                      , self.env.docname
+                                      , book.id
+                                      , book.authors
+                                      , series
+                                      , book.tags))
 
 
 def setup(app: "Sphinx") -> Dict[str, Any]:
