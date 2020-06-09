@@ -19,3 +19,18 @@ div.admonition-recommended>p {
     text-indent: 10px;
     font-style: italic;
 }
+
+div.body {
+    width: 1200px;
+}
+
+p.book-issue-filename {
+    font-size: 12px;
+    font-weight: 700;
+}
+
+p.book-file-component {
+    text-align: right;
+    font-size: 14px;
+    font-weight: 700;
+}

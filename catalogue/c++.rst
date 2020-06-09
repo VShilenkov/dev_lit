@@ -1546,6 +1546,7 @@ C++
 
 
 .. athenaeum:book:: Problem Solving with C++
+    :title_localized: Программирование на C++
     :authors: Walter Savitch
     :tags: C++
 
@@ -1554,6 +1555,19 @@ C++
     :language: eng
     :edition: 9
     :link Amazon: https://www.amazon.com/Problem-Solving-9th-Walter-Savitch/dp/0133591743
+
+    :issue:
+    :year: 2004
+    :language: rus
+    :edition: 4
+    :link Amazon: https://www.amazon.com/Problem-Solving-Object-Programming-4th/dp/0321113470
+    :link Labirint: https://www.labirint.ru/books/100831/
+
+    :issue:
+    :year: 2018
+    :language: eng
+    :edition: 10
+    :link Amazon: https://www.amazon.com/Problem-Solving-Global-Walter-Savitch/dp/1292222824
 
 
 .. athenaeum:book:: Графические средства Turbo С и Turbo C++
@@ -1601,6 +1615,12 @@ C++
     :year: 2017
     :language: rus
     :edition: 2
+    :link Ozon: https://www.ozon.ru/context/detail/id/150626134/
+
+    :issue:
+    :year: 2016
+    :language: rus
+    :edition: 1
     :link Ozon: https://www.ozon.ru/context/detail/id/150626134/
 
 
@@ -2101,6 +2121,7 @@ C++
     :year: 1993
     :language: rus
     :edition: 1
+    :series: Языки программирования
     :link Amazon: https://www.amazon.com/Programmers-Handbook-Paul-J-Lucas/dp/0131182331
     :link Ozon: https://www.ozon.ru/context/detail/id/145574868/
 
@@ -2168,6 +2189,7 @@ C++
     :link Amazon: https://www.amazon.com/C-Experience-Required-Paulo-Franca/dp/078212111X
     :link LitPortal: http://www.litportal.kiev.ua/2007/02/03/franka_p_c_uchebnyjj_kurs.html
 
+
 .. athenaeum:book:: C++ Standard Library Quick Reference
     :authors: Peter Van Weert, Marc Gregoire
     :tags: C++, STL, Data Structures, Algorithm
@@ -2178,3 +2200,617 @@ C++
     :edition: 1
     :link Amazon: https://www.amazon.com/C-Standard-Library-Quick-Reference-dp-1484218752/dp/1484218752
 
+
+.. athenaeum:book:: Exploring C++
+    :subtitle: The Programmer's Introduction to C++
+    :authors: Ray Lischner
+    :tags: C++, C++11
+
+    :issue:
+    :year: 2008
+    :language: eng
+    :edition: 1
+    :series: The Experts Voice In C++
+    :link Amazon: https://www.amazon.com/Exploring-Programmers-Introduction-Experts-Voice/dp/1590597494
+
+    :issue:
+    :year: 2013
+    :language: eng
+    :edition: 2
+    :series: The Experts Voice In C++
+    :volume_name: Exploring C++11
+    :link Amazon: https://www.amazon.com/Exploring-Experts-Voice-Ray-Lischner/dp/1430261935
+
+
+.. athenaeum:book:: Beginning C++ Programming
+    :subtitle: This is the start of your journey into the most powerful language available to the programming public
+    :authors: Richard Grimes
+    :tags: C++
+
+    :issue:
+    :year: 2017
+    :language: eng
+    :edition: 1
+    :link Amazon: https://www.amazon.com/Beginning-C-Programming-Richard-Grimes/dp/1787124940
+
+
+.. athenaeum:book:: Secure Coding in C and C++
+    :title_localized: Безопасное программирование на C и C++
+    :authors: Robert C. Seacord
+    :tags: C++, C
+
+    :issue:
+    :year: 2013
+    :language: eng
+    :edition: 2
+    :series: SEI Series in Software Engineering
+    :link Amazon: https://www.amazon.com/Secure-Coding-SEI-Software-Engineering-ebook/dp/B00C0OBZI0
+
+    :issue:
+    :year: 2015
+    :language: rus
+    :edition: 2
+    :series: Серия SEI
+    :link Amazon: https://www.amazon.com/Secure-Coding-SEI-Software-Engineering-ebook/dp/B00C0OBZI0
+    :link Ozon: https://www.ozon.ru/context/detail/id/31003198/
+
+
+.. athenaeum:book:: Object-Oriented Programming in C++
+    :title_localized: Объектно-ориентированное программирование в С++
+    :authors: Robert Lafore
+    :tags: C++, OOP
+
+    :issue:
+    :year: 2001
+    :language: eng
+    :edition: 4
+    :link Amazon: https://www.amazon.com/Object-Oriented-Programming-4th-Robert-Lafore/dp/0672323087
+
+    :issue:
+    :year: 2004
+    :language: rus
+    :edition: 4
+    :series: Классика Computer Science
+    :link Amazon: https://www.amazon.com/Object-Oriented-Programming-4th-Robert-Lafore/dp/0672323087
+    :link Ozon: https://www.labirint.ru/books/249955/
+
+
+.. athenaeum:book:: C++ for Beginners
+    :subtitle: First steps of C++ Programming Language
+    :authors: Robert W. James
+    :tags: C++
+
+    :issue:
+    :year: 2018
+    :language: eng
+    :edition: 1
+    :link Amazon: https://www.amazon.com/plus-Beginners-First-Programming-Language/dp/1717700888
+
+
+.. athenaeum:book:: Programming Concepts in C++
+    :authors: Robert Burns
+    :tags: C++
+
+    :issue:
+    :year: 2014
+    :language: eng
+    :edition: 1
+    :link Amazon: https://www.amazon.com/Programming-Concepts-C-Robert-Burns-ebook/dp/B07944M6VQ
+
+
+.. athenaeum:book:: Computing in C ++
+    :authors: Robert Nürnberg
+    :tags: C++, C
+
+    :issue:
+    :year: 2013
+    :language: eng
+    :edition: 1
+    :part: 1
+    :part_name: An introduction to C
+
+
+.. athenaeum:book:: Effective C++
+    :title_localized: Эффективное использование C++
+    :authors: Scott Meyers
+    :tags: C++
+
+    :issue:
+    :year: 2000
+    :language: rus
+    :edition: 1
+    :series: Для программистов
+    :volume_name: 50 Specific Ways to Improve Your Programs and Designs
+    :link Amazon: https://www.amazon.de/Effective-Specific-Improve-Programs-Designs/dp/0201924889
+    :link RSDN: https://rsdn.org/res/book/cpp/effective_cpp.xml
+
+    :issue:
+    :year: 2006
+    :language: rus
+    :edition: 3
+    :series: Профессиональная серия от Addison-Wesley
+    :volume_name: 55 Specific Ways to Improve Your Programs and Designs
+    :link Amazon: https://www.amazon.com/Effective-Specific-Improve-Programs-Designs/dp/0321334876
+    :link Ozon: https://www.ozon.ru/context/detail/id/2610625/
+
+
+.. athenaeum:book:: Effective C++ Digital Collection
+    :subtitle: 140 Ways to Improve Your Programming
+    :authors: Scott Meyers
+    :tags: C++
+
+    :issue:
+    :year: 2012
+    :language: eng
+    :edition: 1
+    :series: Addison-Wesley Professional Computing Series
+    :link Amazon: https://www.amazon.com/gp/product/B008E30L9A/
+
+
+.. athenaeum:book:: Effective Modern C++
+    :subtitle: 42 Specific Ways to Improve Your Use of C++11 and C++14
+    :title_localized: Эффективный и современный С++
+    :subtitle_localized: 42 рекомендации по использованию C++11 и C++14
+    :authors: Scott Meyers
+    :tags: C++, C++11, C++14
+
+    :issue:
+    :year: 2014
+    :language: eng
+    :edition: 1
+    :link Amazon: https://www.amazon.com/Effective-Modern-Specific-Ways-Improve-dp-1491903996/dp/1491903996
+
+    :issue:
+    :year: 2016
+    :language: rus
+    :edition: 1
+    :link Amazon: https://www.amazon.com/Effective-Modern-Specific-Ways-Improve-dp-1491903996/dp/1491903996
+    :link Ozon: https://www.ozon.ru/context/detail/id/149092825
+
+
+.. athenaeum:book:: C++ Programming Language
+    :subtitle: Simple, Short, and Straightforward Way of Learning C++ Programming
+    :authors: Sherwyn Allibang
+    :tags: C++
+
+    :issue:
+    :year: 2017
+    :language: eng
+    :edition: 1
+    :link Amazon: https://www.amazon.com/Programming-Language-Simple-Straightforward-Learning/dp/1520811055
+
+
+.. athenaeum:book:: C++ in One Hour a Day
+    :title_localized: Освой самостоятельно C++ по одному часу в день
+    :authors: Siddhartha Rao
+    :tags: C++, C++14, C++17
+
+    :issue:
+    :year: 2017
+    :language: eng
+    :edition: 8
+    :series: Sams Teach Yourself
+    :link Amazon: https://www.amazon.com/One-Hour-Sams-Teach-Yourself/dp/0789757745
+
+    :issue:
+    :year: 2017
+    :language: rus
+    :edition: 8
+    :series: Освой самостоятельно…
+    :link Amazon: https://www.amazon.com/One-Hour-Sams-Teach-Yourself/dp/0789757745
+    :link Ozon: https://www.ozon.ru/context/detail/id/142089790/
+
+
+.. athenaeum:book:: C++ Notes for Professionals
+    :authors: Stack Overflow
+    :tags: C++
+
+    :issue:
+    :year: 2019
+    :language: eng
+    :edition: 1
+    :link goalkicker.com: https://goalkicker.com/CPlusPlusBook/
+
+
+.. athenaeum:book:: C++ Primer
+    :title_localized: Язык программирования С++
+    :subtitle_localized: Полное руководство
+    :authors: Stanley B. Lippman, Josée Lajoie, Barbara E. Moo
+    :tags: C++, C++11
+
+    :issue:
+    :year: 2006
+    :language: rus
+    :edition: 3
+    :series: Профессиональная серия от Addison-Wesley
+    :link Amazon: https://www.amazon.com/Primer-3rd-Stanley-B-Lippman/dp/0201824701
+    :link znanium.com: https://znanium.com/catalog/document?pid=407166
+    :link studentlibrary: http://www.studentlibrary.ru/book/ISBN5794000708.html
+
+    :issue:
+    :year: 2007
+    :language: rus
+    :edition: 4
+    :link Amazon: https://www.amazon.com/Primer-4th-Stanley-B-Lippman/dp/0201721481
+    :link Williams: http://www.williamspublishing.com/Books/5-8459-1121-4.html
+
+    :issue:
+    :year: 2012
+    :language: eng
+    :edition: 5
+    :link Amazon: https://www.amazon.com/Primer-5th-Stanley-B-Lippman/dp/0321714113
+
+    :issue:
+    :year: 2014
+    :language: rus
+    :edition: 5
+    :link Amazon: https://www.amazon.com/Primer-5th-Stanley-B-Lippman/dp/0321714113
+    :link Ozon: https://www.ozon.ru/context/detail/id/147417585/
+
+
+.. athenaeum:book:: Clean C++
+    :subtitle: Sustainable Software Development Patterns and Best Practices with C++ 17
+    :authors: Stephan Roth
+    :tags: C++, C++17
+
+    :issue:
+    :year: 2017
+    :language: eng
+    :edition: 1
+    :link Amazon: https://www.amazon.com/Clean-Sustainable-Software-Development-Practices-ebook/dp/B075ZPY3PP
+
+
+.. athenaeum:book:: C++ Common Knowledge
+    :subtitle: Essential Intermediate Programming
+    :title_localized: C++
+    :subtitle_localized: Священные знания
+    :authors: Stephen C. Dewhurst
+    :tags: C++
+
+    :issue:
+    :year: 2008
+    :language: rus
+    :edition: 1
+    :series: Профессионально
+    :link Amazon: https://www.amazon.com/Common-Knowledge-Essential-Intermediate-Programming-ebook/dp/B003DVG7Q4
+    :link Ozon: https://www.ozon.ru/context/detail/id/3707235/
+
+    :issue:
+    :year: 2012
+    :language: rus
+    :edition: 1
+    :series: Профессионально
+    :link Amazon: https://www.amazon.com/Common-Knowledge-Essential-Intermediate-Programming-ebook/dp/B003DVG7Q4
+    :link Ozon: https://www.ozon.ru/context/detail/id/17586126/
+
+
+.. athenaeum:book:: C++ Gotchas
+    :subtitle: Avoiding Common Problems in Coding and Design
+    :title_localized: Скользкие места С++
+    :subtitle_localized: Как избежать проблемы при проектировании и компиляции ваших программ
+    :authors: Stephen C. Dewhurst
+    :tags: C++
+
+    :issue:
+    :year: 2006
+    :language: rus
+    :edition: 1
+    :series: Профессиональная серия от Addison-Wesley
+    :link Amazon: https://www.amazon.com/Gotchas-Avoiding-Common-Problems-Coding/dp/0321125185
+    :link Ozon: https://www.ozon.ru/context/detail/id/2631001/
+
+    :issue:
+    :year: 2009
+    :language: rus
+    :edition: 1
+    :series: Профессиональная серия от Addison-Wesley
+    :link Amazon: https://www.amazon.com/Gotchas-Avoiding-Common-Problems-Coding/dp/0321125185
+    :link rucont: https://rucont.ru/efd/199450
+
+.. athenaeum:book:: Programming in C++
+    :title_localized: Программирование на C++
+    :authors: Stephen C. Dewhurst, Kathy T. Stark
+    :tags: C++
+
+    :issue:
+    :year: 1993
+    :language: rus
+    :edition: 1
+    :series: Языки программирования
+    :link Amazon: https://www.amazon.de/Stephen-C-Dewhurst/dp/0137231563
+    :link Libex: https://www.libex.ru/detail/book33741.html
+
+.. athenaeum:book:: C++ Primer Plus
+    :title_localized: Язык программирования C++
+    :subtitle_localized: Лекции и упражнения
+    :authors: Stephen Prata
+    :tags: C++
+
+    :issue:
+    :year: 2000
+    :language: rus
+    :edition: 3
+    :link Amazon: https://www.amazon.com/Primer-Plus-Mitchell-Waite-Signature/dp/1571691316
+    :link books.ru: https://www.books.ru/books/yazyk-programmirovaniya-c-lektsii-i-uprazhneniya-uchebnik-9550/
+
+    :issue:
+    :year: 2005
+    :language: rus
+    :edition: 4
+    :link Amazon: https://www.amazon.com/Primer-Plus-4th-Stephen-Prata/dp/0672322226
+    :link Ozon: https://www.ozon.ru/context/detail/id/118520
+
+    :issue:
+    :year: 2007
+    :language: rus
+    :edition: 5
+    :link Amazon: https://www.amazon.com/Primer-Plus-5th-Stephen-Prata/dp/0672326973
+    :link Ozon: https://www.books.ru/books/yazyk-programmirovaniya-c-lektsii-i-uprazhneniya-475525/
+
+    :issue:
+    :year: 2011
+    :language: eng
+    :edition: 6
+    :series: Developer's Library
+    :link Amazon: https://www.amazon.com/Primer-Plus-6th-Developers-Library-dp-0321776402/dp/0321776402
+
+    :issue:
+    :year: 2012
+    :language: rus
+    :edition: 6
+    :series: Landmark
+    :link Amazon: https://www.amazon.com/Primer-Plus-6th-Developers-Library-dp-0321776402/dp/0321776402
+    :link Ozon: https://www.ozon.ru/context/detail/id/7979735/
+
+.. athenaeum:book:: C++ Windows Programming
+    :subtitle: Develop real-world applications in Windows
+    :authors: Stefan Bjornander
+    :tags: C++, Windows Programming
+
+    :issue:
+    :year: 2016
+    :language: eng
+    :edition: 1
+    :series: Community Experience Distilled
+    :link Amazon: https://www.amazon.com/C-Windows-Programming-Stefan-Bjornander/dp/1786464225
+
+.. athenaeum:book:: C++ Hacker's Guide
+    :authors: Steve Oualline
+    :tags: C++
+
+    :issue:
+    :year: 2008
+    :language: eng
+    :edition: 1
+    :link Amazon: https://www.amazon.com/C-Hackers-Guide-Steve-Oualline/dp/1593271689
+
+.. athenaeum:book:: Starting Out with C++
+    :subtitle: Early Objects
+    :authors: Tony Gaddis, Judy Walters, Godfrey Muganda
+    :tags: C++
+
+    :issue:
+    :year: 2010
+    :language: eng
+    :edition: 7
+    :link Amazon: https://www.amazon.com/Starting-Out-Early-Objects-7th/dp/0136077749
+
+    :issue:
+    :year: 2016
+    :language: eng
+    :edition: 9
+    :link Amazon: https://www.amazon.com/Starting-Out-Early-Objects-9th/dp/0134400240
+
+.. athenaeum:book:: Starting Out With C++
+    :subtitle: From Control Structures Through Objects
+    :authors: Tony Gaddis
+    :tags: C++
+
+    :issue:
+    :year: 2011
+    :language: eng
+    :edition: 7
+    :link Amazon: https://www.amazon.com/Starting-Out-Control-Structures-through/dp/0132576252
+
+    :issue:
+    :year: 2014
+    :language: eng
+    :edition: 8
+    :link Amazon: https://www.amazon.com/Starting-Out-Control-Structures-Objects/dp/0133769399
+
+    :issue:
+    :year: 2017
+    :language: eng
+    :edition: 9
+    :link Amazon: https://www.amazon.com/Starting-Out-Control-Structures-Objects/dp/0134498372
+
+.. athenaeum:book:: Symbolic C++
+    :subtitle: An Introduction to Computer Algebra using Object-Oriented Programming: An Introduction to Computer Algebra using Object-Oriented Programming
+    :title_localized: Символьный C++
+    :subtitle_localized: Введение в компьютерную алгебру с использованием ООП C++
+    :authors: Kiat Shi Tan, Willi-Hans Steeb, Yorick Hardy
+    :tags: C++, Mathematics, Computer Algebra, OOP
+
+    :issue:
+    :year: 2001
+    :language: rus
+    :edition: 1
+    :link Amazon: https://www.amazon.com/SymbolicC-Introduction-Computer-Object-Oriented-Programming/dp/1852332603
+    :link books.ru: https://www.books.ru/books/simvolnyi-c-vvedenie-v-kompyuternuyu-algebru-s-ispolzovaniem-oop-c-21182/
+
+.. athenaeum:book:: C++ High Performance
+    :subtitle: Boost and optimize the performance of your C++17 code
+    :authors: Björn Andrist, Viktor Sehr
+    :tags: C++, Performance, C++17
+
+    :issue:
+    :year: 2018
+    :language: eng
+    :edition: 1
+    :link Amazon: https://www.amazon.com/High-Performance-Boost-optimize-performance-ebook/dp/B01MZX1E3Q
+
+.. athenaeum:book:: Learning C++ Functional Programming
+    :subtitle: Metaprogramming, concurrency, lazy evaluation, and more
+    :authors: Wisnu Anggoro
+    :tags: C++, Metaprogramming, Concurrency, Functional Programming
+
+    :issue:
+    :year: 2017
+    :language: eng
+    :edition: 1
+    :link Amazon: https://www.amazon.com/Learning-Functional-Programming-functional-metaprogramming-ebook/dp/B06WVD7CVT
+
+.. athenaeum:book:: Data Structures and the Standard Template Library
+    :title_localized: Структуры данных и стандартная библиотека шаблонов
+    :authors: William Collins
+    :tags: C++, Data Structures, STL
+
+    :issue:
+    :year: 2004
+    :language: rus
+    :edition: 1
+    :link Amazon: https://www.amazon.com/Data-Structures-Standard-Template-Library/dp/0072369655
+    :link Ozon: https://www.ozon.ru/context/detail/id/1560203/
+
+.. athenaeum:book:: Introduction to Programming with C++
+    :authors: Y Daniel Liang
+    :tags: C++
+
+    :issue:
+    :year: 2013
+    :language: eng
+    :edition: 3
+    :link Amazon: https://www.amazon.com/Introduction-Programming-International-Daniel-Liang/dp/0273793241
+
+.. athenaeum:book:: C++
+    :subtitle: 21 Sample Codes and Advanced Crash Course Guide in C++ Programming
+    :authors: Zach Webber
+    :tags: C++
+
+    :issue:
+    :year: 2018
+    :language: eng
+    :edition: 1
+    :series: C++
+    :link Amazon: https://www.amazon.com/Sample-Codes-Advanced-Course-Programming/dp/1723701645
+
+.. athenaeum:book:: С++
+    :subtitle: Трюки и эффекты
+    :authors: Елена В Кондратюк
+    :tags: С++
+
+    :issue:
+    :year: 2006
+    :language: rus
+    :edition: 1
+    :series: Трюки и эффекты
+    :link Ozon: https://www.ozon.ru/context/detail/id/2623935/ozon.ru/
+
+.. athenaeum:book:: Использование ассемблера для оптимизации программ на C++
+    :authors: Юрий Степанович Магда
+    :tags: C++, Assembly Language, Optimization, Performance
+
+    :issue:
+    :year: 2004
+    :language: rus
+    :edition: 1
+    :series: Профессиональное программирование
+    :link books.ru: https://www.books.ru/books/ispolzovanie-assemblera-dlya-optimizatsii-programm-na-c-189032/
+    :link Labirint: https://www.labirint.ru/books/44723/
+
+.. athenaeum:book:: Обработка нечисловых типов данных в среде MS VS C++
+    :authors: Юрий Евтихович Алексеев, Андрей Владимирович Куров
+    :tags: C++, Data Structures
+
+    :issue:
+    :year: 2017
+    :language: rus
+    :edition: 1
+    :link ebooks.bmstu.ru: http://ebooks.bmstu.ru/catalog/199/book1618.html
+
+.. athenaeum:book:: Решение задач на языках программирования Си и Си++
+    :subtitle: Методические указания к выполнению лабораторных работ
+    :authors: Александр Юрьевич Быков
+    :tags: C++
+
+    :issue:
+    :year: 2017
+    :language: rus
+    :edition: 1
+    :link ebooks.bmstu.ru: https://ebooks.bmstu.ru/catalog/117/book1572.html
+    :link HTBook: https://www.htbook.ru/kompjutery_i_seti/programmirovanie/reshenie-zadach-na-yazykah-programmirovaniya-si-i-si-plyus-plyus
+
+.. athenaeum:book:: Сборник задач и упражнений по языку Си++
+    :subtitle: Учебное пособие для студентов II курса
+    :authors: Ирина Анатольевна Волкова, Алексей Александрович Вылиток, Леонид Евгеньевич Карпов
+    :tags: C++, Problem Set
+
+    :issue:
+    :year: 2013
+    :language: rus
+    :edition: 1
+
+.. athenaeum:book:: Стандарт С++
+    :subtitle: перевод, комментарии, примеры
+    :authors: Евгений Александрович Зуев, Анатолий Анатольевич Чупринов
+    :tags: C++
+
+    :issue:
+    :year: 2016
+    :language: rus
+    :edition: 1
+    :link RSL: https://search.rsl.ru/ru/record/01008265098
+
+.. athenaeum:book:: C++
+    :subtitle: Бархатный путь
+    :authors: Антон Леонардович Марченко
+    :tags: C++
+
+    :issue:
+    :year: 2005
+    :language: rus
+    :edition: 2
+    :link bookzone.com.ua: https://bookzone.com.ua/books/17739-c-barkhatnyy-put-izd-2/
+
+.. athenaeum:book:: C++ Мастер-класс
+    :subtitle: 85 нетривиальных проектов, решений и задач
+    :authors: Максим Владимирович Мозговой
+    :tags: C++
+
+    :issue:
+    :year: 2007
+    :language: rus
+    :edition: 1
+    :series: Секреты мастерства
+    :link Yandex: https://market.yandex.ru/product--mozgovoi-maksim-vladimirovich-c-master-klass-85-netrivialnykh-proektov-reshenii-i-zadach/2410883
+
+.. athenaeum:book:: Программирование на языке C++
+    :authors: Татьяна Александровна Павловская
+    :tags: C++
+
+    :issue:
+    :year: 2016
+    :language: rus
+    :edition: 1
+    :link bookmate.com: https://ru.bookmate.com/books/LsQAgRO4
+
+.. athenaeum:book:: Язык программирования С++
+    :authors: Александр Львович Фридман
+    :tags: C++
+
+    :issue:
+    :year: 2016
+    :language: rus
+    :edition: 2
+    :link Intuit: https://www.intuit.ru/goods_store/ebooks/8159
+
+.. athenaeum:book:: "Философия" программирования на языке C++
+    :authors: Дмитрий Михайлович Якушев
+    :tags: C++
+
+    :issue:
+    :year: 2006
+    :language: rus
+    :edition: 2
+    :link Labirint: https://www.labirint.ru/books/47703/
+    :link ODNB: http://catalog.odnb.odessa.ua/opac/index.php?url=/notices/index/IdNotice:70575/Source:default

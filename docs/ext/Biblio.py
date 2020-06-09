@@ -234,7 +234,7 @@ class Issue:
         reference += nodes.strong(link, link)
         return reference
 
-    def build_node(self, domain: 'Athenaeum' = None) -> nodes.Node:
+    def build_node(self, domain: 'Athenaeum' = None, folder: str = '') -> nodes.Node:
         issue_node = nodes.paragraph()
 
         issue_node += nodes.strong(text=self.year, classes=self.classes['year'])
@@ -260,7 +260,7 @@ class Issue:
             info_bullet_list += link_item
 
         file_name_item = nodes.list_item()
-        file_name_item += nodes.paragraph( text=self.build_file_component()
+        file_name_item += nodes.paragraph( text=folder + self.build_file_component()
                                          , classes=self.classes['filename'])
         info_bullet_list += file_name_item
 
@@ -393,7 +393,6 @@ class Book:
 
         return self.title
 
-
     def build_node_authors(self) -> nodes.Node:
         authors_node = nodes.paragraph(text='Authors'
                                       , classes=self.classes['authors'])
@@ -413,7 +412,7 @@ class Book:
         issues_bullet_list = nodes.bullet_list(bullet='-')
         for i in sorted(self.issues, key=lambda issue: issue.year):
             issue_list_item = nodes.list_item()
-            issue_list_item += i.build_node(domain=self.domain)
+            issue_list_item += i.build_node(domain=self.domain, folder=self.build_folder_title())
             issues_bullet_list += issue_list_item
 
         issues_node += issues_bullet_list

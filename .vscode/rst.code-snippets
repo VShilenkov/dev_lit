@@ -1,0 +1,31 @@
+{
+    "book": {
+        "prefix": "athenaeumbook",
+        "scope": "restructuredtext",
+        "body": [
+
+            ".. athenaeum:book::$0",
+            "    :subtitle:",
+            "    :title_localized:",
+            "    :subtitle_localized:",
+            "    :authors:",
+            "    :tags: tag_list",
+            "",
+            "    :issue:",
+            "    :year:",
+            "    :language:",
+            "    :edition:",
+            "    :series:",
+            "    :volume:",
+            "    :volume_name:",
+            "    :part:",
+            "    :part_name:",
+            "    :fascicle:",
+            "    :fascicle_name:",
+            "    :link Amazon:",
+            "    :link Ozon:",
+            ""
+        ],
+        "description": "Athenaeum book"
+    },
+}
