@@ -7,6 +7,7 @@ Programming Languages
    :caption: Contents:
 
     Assembly Language <assembly.rst>
+    C Language <c.rst>
     C++ Language <c++.rst>
     Fortran Language <fortran.rst>
     Java Language <java.rst>

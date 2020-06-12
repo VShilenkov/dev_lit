@@ -1,6 +1,6 @@
 {
     "book": {
-        "prefix": "athenaeumbook",
+        "prefix": "..athenaeum:book",
         "scope": "restructuredtext",
         "body": [
 
@@ -9,7 +9,7 @@
             "    :title_localized:",
             "    :subtitle_localized:",
             "    :authors:",
-            "    :tags: tag_list",
+            "    :tags:",
             "",
             "    :issue:",
             "    :year:",
