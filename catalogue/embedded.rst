@@ -14,7 +14,6 @@ Embedded Software
     :edition: 1
     :link amazon: https://www.amazon.com/Linux-Embedded-Development-Alexandru-Vaduva-ebook/dp/B01LYNTT8V
 
-
 .. athenaeum:book:: Building Embedded Systems
     :subtitle: Programmable Hardware
     :authors: Changyi Gu
@@ -26,7 +25,6 @@ Embedded Software
     :edition: 1
     :series: The Expert's Voice
     :link amazon: https://www.amazon.com/Building-Embedded-Systems-Programmable-Hardware-dp-148421918X/dp/148421918X
-
 
 .. athenaeum:book:: Mastering Embedded Linux Programming
     :subtitle: Harness the power of Linux to create versatile and robust embedded solutions
@@ -41,7 +39,6 @@ Embedded Software
     :link amazon: https://www.amazon.com/Mastering-Embedded-Linux-Programming-Simmonds-ebook/dp/B00YSILBYO
     :link ozon: https://www.ozon.ru/context/detail/id/139989480/
 
-
 .. athenaeum:book:: Quick Boot
     :subtitle: A Guide for Embedded Firmware Developers
     :authors: Pete Dice
@@ -52,6 +49,18 @@ Embedded Software
     :language: eng
     :edition: 2
     :link amazon: https://www.amazon.com/Quick-Boot-Embedded-Firmware-Developers-ebook-dp-B06Y61P3TS/dp/B06Y61P3TS/
+
+.. athenaeum:book:: Software Engineering for Embedded Systems
+    :subtitle: Methods, Practical Techniques, and Applications
+    :authors: Robert Oshana, Mark Kraeling
+    :tags: Embedded
+
+    :issue:
+    :year: 2019
+    :language: eng
+    :edition: 2
+    :link Amazon: https://www.amazon.com/Software-Engineering-Embedded-Systems-Applications-dp-0128094486/dp/0128094486
+
 
 
 
