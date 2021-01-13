@@ -623,3 +623,90 @@ C Language
     :language: eng
     :edition: 1
     :link Amazon: https://www.amazon.com/Introduction-GUI-Programming-Simon-Long/dp/1912047659
+
+.. athenaeum:book:: Effective C
+    :subtitle: An Introduction to Professional C Programming
+    :authors: Robert C. Seacord
+    :tags: C
+
+    :issue:
+    :year: 2020
+    :language: eng
+    :edition: 1
+    :link Amazon: https://www.amazon.com/Effective-Introduction-Professional-Robert-Seacord/dp/1718501048
+
+.. athenaeum:book:: Fundamental C
+    :subtitle: Getting Closer To The Machine
+    :authors: Harry Fairhead
+    :tags: C
+
+    :issue:
+    :year: 2019
+    :language: eng
+    :edition: 1
+    :link Amazon: https://www.amazon.com/Fundamental-C-Getting-Closer-Machine/dp/1871962609
+
+.. athenaeum:book:: Introduction to C programming
+    :subtitle: A practical approach
+    :authors: Enrique Vicente García
+    :tags: C
+
+    :issue:
+    :year: 2020
+    :language: eng
+    :edition: 1
+    :link Amazon: https://www.amazon.com/Introduction-C-programming-practical-approach-ebook/dp/B08BYR2RXQ
+
+.. athenaeum:book:: Practical Numerical C Programming
+    :subtitle: Finance, Engineering, and Physics Applications
+    :authors: Philip Joyce
+    :tags: C
+
+    :issue:
+    :year: 2020
+    :language: eng
+    :edition: 1
+    :link Amazon: https://www.amazon.com/Practical-Numerical-Programming-Engineering-Applications-dp-1484261275/dp/1484261275
+
+.. athenaeum:book:: Practical C
+    :authors: Giulio Zambon
+    :tags: C
+
+    :issue:
+    :year: 2016
+    :language: eng
+    :edition: 1
+    :link Amazon: https://www.amazon.com/Practical-C-Giulio-Zambon-dp-1484217683/dp/1484217683
+
+.. athenaeum:book:: String Algorithms in C
+    :subtitle: Efficient Text Representation and Search
+    :authors: Thomas Mailund
+    :tags: C
+
+    :issue:
+    :year: 2020
+    :language: eng
+    :edition: 1
+    :link Amazon: https://www.amazon.com/String-Algorithms-Efficient-Representation-Search-ebook/dp/B08GYQP1VY
+
+.. athenaeum:book:: The Standard C Library
+    :authors: P. J. Plauger
+    :tags: C
+
+    :issue:
+    :year: 1991
+    :language: eng
+    :edition: 1
+    :link Amazon: https://www.amazon.com/Standard-Library-P-J-Plauger/dp/0138380120
+
+.. athenaeum:book:: The C puzzle book
+    :authors: Alan R. Feuer
+    :tags: C
+
+    :issue:
+    :year: 1982
+    :language: eng
+    :edition: 1
+    :series: Prentice-Hall software series
+    :link Amazon: https://www.amazon.com/puzzle-book-Prentice-Hall-software/dp/0131099345
+

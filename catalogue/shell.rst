@@ -40,6 +40,15 @@ Shell
     :edition: 2
     :link Amazon: https://www.amazon.com/Linux-Command-Line-2nd-Introduction-ebook/dp/B07J43H42Z/
 
+    :issue:
+    :year: 2017
+    :language: rus
+    :edition: 1
+    :series: Для профессионалов
+    :link Amazon: https://www.amazon.com/Linux-Command-Line-Complete-Introduction/dp/1593273894
+    :link Ozon: https://www.ozon.ru/context/detail/id/137731096/
+
+
 
 .. athenaeum:book:: Linux Command Line and Shell Scripting Bible
     :title_localized: Командная строка Linux и сценарии оболочки

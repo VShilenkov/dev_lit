@@ -560,6 +560,13 @@ C++
     :edition: 4
     :link Amazon: https://www.amazon.com/C-Programming-Language-4th/dp/0321563840
 
+    :issue:
+    :year: 1993
+    :language: rus
+    :edition: 2
+    :link Amazon: https://www.amazon.com/C-Programming-Language-Bjarne-Stroustrup/dp/0201539926
+    :link library.bmstu.ru: https://library.bmstu.ru/ECatalog/ViewDescription.aspx?DescriptionId=64286&return=mode%3Da%26src%3Dc%26order%3D0%26author%3D%25d1%25f2%25f0%25e0%25f3%25f1%25f2%25f0%25f3%25ef%2B%25c1.%26authortype%3D0%26vmfrom%3D1%26vmto%3D12%26page%3D0&utm_source=library.bmstu.ru&utm_medium=organic
+    :link qnx.org.ru: http://qnx.org.ru/forum/index.php?topic=509
 
 .. athenaeum:book:: C++ Without Fear
     :subtitle: A Beginner's Guide That Makes You Feel Smart
@@ -2221,6 +2228,13 @@ C++
     :volume_name: Exploring C++11
     :link Amazon: https://www.amazon.com/Exploring-Experts-Voice-Ray-Lischner/dp/1430261935
 
+    :issue:
+    :year: 2020
+    :language: eng
+    :edition: 3
+    :volume_name: Exploring C++20
+    :link Amazon: https://www.amazon.com/Exploring-Programmers-Introduction-Ray-Lischner/dp/1484259602
+
 
 .. athenaeum:book:: Beginning C++ Programming
     :subtitle: This is the start of your journey into the most powerful language available to the programming public
@@ -2601,6 +2615,12 @@ C++
     :edition: 9
     :link Amazon: https://www.amazon.com/Starting-Out-Early-Objects-9th/dp/0134400240
 
+    :issue:
+    :year: 2019
+    :language: eng
+    :edition: 10
+    :link Amazon: https://www.amazon.com/Starting-Out-Early-Objects-10th/dp/0135235006
+
 .. athenaeum:book:: Starting Out With C++
     :subtitle: From Control Structures Through Objects
     :authors: Tony Gaddis
@@ -2814,3 +2834,41 @@ C++
     :edition: 2
     :link Labirint: https://www.labirint.ru/books/47703/
     :link ODNB: http://catalog.odnb.odessa.ua/opac/index.php?url=/notices/index/IdNotice:70575/Source:default
+
+.. athenaeum:book:: Modern C++ for Absolute Beginners
+    :subtitle: A Friendly Introduction to C++ Programming Language and C++11 to C++20 Standards
+    :authors: Slobodan Dmitrović
+    :tags: C++
+
+    :issue:
+    :year: 2020
+    :language: eng
+    :edition: 1
+    :link Amazon: https://www.amazon.com/Modern-Absolute-Beginners-Introduction-Programming/dp/1484260465
+
+.. athenaeum:book:: DirectX 9
+    :subtitle: Уроки программирования на С++
+    :authors: Станислав Геннадьевич Горнаков
+    :tags: C++, DirectX, DirectX 9
+
+    :issue:
+    :year: 2005
+    :language: rus
+    :edition: 1
+    :series: Профессиональное программирование
+    :link Labirint: https://www.labirint.ru/books/55797/
+
+.. athenaeum:book:: C++ Reactive Programming
+    :subtitle: Design concurrent and asynchronous applications using the RxCpp library and Modern C++17
+    :title_localized: Реактивное программирование на С++
+    :subtitle_localized: Проектирование параллельных и асинхронных приложений с использованием библиотеки RxCpp и современного C++17
+    :authors: Praseed Pai, Peter Abraham
+    :tags: C++, Concurent Programming, Asynchronous Programming, C++ 17, RxCpp
+
+    :issue:
+    :year: 2019
+    :language: rus
+    :edition: 1
+    :link Amazon: https://www.amazon.com/Reactive-Programming-concurrent-asynchronous-applications/dp/1788629779
+    :link Labirint: https://www.labirint.ru/books/699486/
+

@@ -363,6 +363,15 @@ Algorithms
     :part_name: Graph Algorithms and Data Structures
     :link Amazon: https://www.amazon.com/Algorithms-Illuminated-Part-Graph-Structures/dp/0999282921
 
+    :issue:
+    :year: 2020
+    :language: eng
+    :edition: 1
+    :series: Algorithms Illuminated
+    :part: 4
+    :part_name: Algorithms for NP-Hard Problems
+    :link Amazon: https://www.amazon.com/Algorithms-Illuminated-Part-NP-Hard-Problems/dp/0999282964
+
 .. athenaeum:book:: SWITCH-технология
     :subtitle:  Алгоритмизация и программирование задач логического управления
     :authors: Анатолий Абрамович Шалыто
@@ -1127,4 +1136,48 @@ Algorithms
     :edition: 1
     :link Amazon: https://www.amazon.com/introduction-structures-applications-McGraw-Hill-computer/dp/0070651507
     :link Ozon: https://www.ozon.ru/context/detail/id/28515105/
+
+.. athenaeum:book:: Introduction to Distributed Algorithms
+    :authors: Gerard Tel
+    :tags: Algorithms, Distributed Programming
+
+    :issue:
+    :year: 2000
+    :language: eng
+    :edition: 2
+    :link Amazon: https://www.amazon.com/Intro-Distributed-Algorithms-2ed-Gerard-dp-0521794838/dp/0521794838
+
+.. athenaeum:book:: Algorithms and Theory of Computation Handbook
+    :authors: Mikhail J. Atallah, Marina Blanton
+    :tags: Algorithms
+
+    :issue:
+    :year: 2009
+    :language: eng
+    :edition: 2
+    :series: Chapman & Hall/CRC Applied Algorithms and Data Structures Series
+    :volume: 1
+    :volume_name: General Concepts and Techniques
+    :link Amazon: https://www.amazon.com/Algorithms-Theory-Computation-Handbook-Techniques/dp/1584888229
+
+    :issue:
+    :year: 2009
+    :language: eng
+    :edition: 2
+    :series: Chapman & Hall/CRC Applied Algorithms and Data Structures Series
+    :volume: 2
+    :volume_name: Special Topics and Techniques
+    :link Amazon: https://www.amazon.com/Algorithms-Theory-Computation-Handbook-Techniques-dp-1584888202/dp/1584888202
+
+.. athenaeum:book:: Algorithm Engineering
+    :subtitle: Selected Results and Surveys
+    :authors: Lasse Kliemann, Peter Sanders
+    :tags: Algorithms
+
+    :issue:
+    :year: 2016
+    :language: eng
+    :edition: 1
+    :series: Lecture Notes in Computer Science
+    :link Amazon: https://www.amazon.com/Algorithm-Engineering-Selected-Results-Computer-dp-3319494864/dp/3319494864
 

@@ -652,3 +652,26 @@ Python
     :link Amazon: https://www.amazon.com/Programming-Python-Complete-Introduction-Language/dp/0321680561
     :link www.books.ru: https://www.books.ru/books/programmirovanie-na-python-3-podrobnoe-rukovodstvo-661501/
 
+.. athenaeum:book:: Python 3 и PyQt 5
+    :subtitle: Разработка приложений
+    :authors: Николай Анатольевич Прохоренок, Владимир Александрович Дронов
+    :tags: Python, Python 3, PyQt
+
+    :issue:
+    :year: 2019
+    :language: rus
+    :edition: 2
+    :series: Профессиональное программирование
+    :link Labirint: https://www.labirint.ru/books/663315/
+
+.. athenaeum:book:: Python Command Line Tools
+    :subtitle: Design powerful apps with Click
+    :authors: Noah Gift, Alfredo Deza
+    :tags: Python
+
+    :issue:
+    :year: 2020
+    :language: eng
+    :edition: 1
+    :link Amazon: https://www.amazon.com/Python-Command-Line-Tools-onemillion2021/dp/B089CVZ65L
+

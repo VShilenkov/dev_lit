@@ -156,6 +156,13 @@ Assembly language
     :edition: 1
     :link Labirint: https://www.labirint.ru/books/481996/
 
+    :issue:
+    :year: 2014
+    :language: rus
+    :edition: 1
+    :link Labirint: https://www.labirint.ru/books/481996/
+
+
 .. athenaeum:book:: ARM 64-Bit Assembly Language
     :authors: Larry D. Pyeatt, William Ughetta
     :tags: Assembly Language, ARM, ARM64
